@@ -1,12 +1,13 @@
 /* Prerecorded voice clips; no speech service is called during playback. */
 window.CXNarration = {
   "schema": "chuanxu-prerecorded-narration/v1",
+  "product_version": "5.0.4",
   "language": "zh-CN",
   "voice": "zh-CN-XiaoxiaoNeural",
-  "generated_at": "2026-11-05T04:10:05.963963+00:00",
+  "generated_at": "2026-11-05T14:04:29.146568+00:00",
   "gap_seconds": 0.3,
-  "script_sha256": "e6d150e5a6e7f07614c82f872cfb6d1a5c71c787c7f82dee34836322db94bc1f",
-  "content_file_sha256": "ad652cbbc969f52fa1cd2472f917fcf533b2de3b1e9f6bdaeafa28de8fc907b8",
+  "script_sha256": "944ca01a81b3c15b41c720b4de38aec155738cd7dcde8608c09f07f7a1f143c9",
+  "content_file_sha256": "0fb515ce67a6ffc4e86f678d45a4a0a715c463c0ba656ecb8931729f2a47294a",
   "entries": {
     "index/introduction/0": {
       "text": "川序是以数据库为权威状态源的企业智能体基础设施。它连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。接下来，我们从一次工作的流转，了解川序如何运行。",
@@ -58,11 +59,11 @@ window.CXNarration = {
       "content_sha256": "6ef2d24e6a2f51908c561c48e392801569876796371138b90b32be41cb411718"
     },
     "knowledge/chapter-introduction/0": {
-      "text": "接下来是知识与记忆。这一页介绍资料如何成为有来源、可授权的工作依据。我们会依次看授权检索、知识入库，以及记忆与上下文。",
+      "text": "接下来是知识与记忆。我们会先看授权检索、知识入库和时态记忆，再看本版的官方事件采集、故障复盘草稿与上下文依据。所有环节都保留来源与权限，采集和报告生成不会自动发布知识。",
       "src": "assets/narration/knowledge-chapter-introduction-01.mp3",
-      "duration": 13.824,
-      "sha256": "63787a5886264390ef0dd0afc2d8f0f02fd5946869de88c16d764d1f0e3ad4c8",
-      "content_sha256": "42b3c5cd0427a7e6282ff0857577551387e6fc90414736e7d92910386e0e7f18"
+      "duration": 20.064,
+      "sha256": "6d12908805e444d3623c9d1d9dc65f9d4e6d587493fb398f0ad64cb28c5fa015",
+      "content_sha256": "9f3cb76c17187bc05d906c753cb047fe80260f6153958f96c7574329bc15b56e"
     },
     "knowledge/retrieval/0": {
       "text": "先看知识检索。面对部署问题，先明确产品、版本和适用时间，避免用旧说明回答新问题。",
@@ -189,6 +190,132 @@ window.CXNarration = {
       "duration": 10.632,
       "sha256": "cb6e86bd92dd0a65cd5b0eedad9cbbe4bd2fde198d9a66d16eef8b869b7c02d5",
       "content_sha256": "e2b9c7b55c09a5136a4b634cf0fcfed886682c3c56052d869aec93ee08ac49b1"
+    },
+    "knowledge/official-incidents/0": {
+      "text": "从官方状态页开始。川序可以采集 GitHub 和 Cloudflare 的官方事件接口，保留出处和事件标识。公开事件能说明供应商状态，但不能直接证明企业内部受到了什么影响。",
+      "src": "assets/narration/knowledge-official-incidents-01.mp3",
+      "duration": 17.4,
+      "sha256": "0733e0aa3335411aeedfa5ddc871d111057694adf08fc3c44013c983861ae1ae",
+      "content_sha256": "3c7998d3f479ffe19936d383909ebf0f3a27ecd3385e907bf75423fd4d3a5a9b"
+    },
+    "knowledge/official-incidents/1": {
+      "text": "采集过程有明确边界。请求时间、响应大小和事件数量受到限制。响应或结构检查失败时，保留失败记录，不用空结果覆盖原有资料。",
+      "src": "assets/narration/knowledge-official-incidents-02.mp3",
+      "duration": 14.712,
+      "sha256": "ee7873c7278193b34471cf36c81a07fc29f4b32a103089e920d1f5321f12799d",
+      "content_sha256": "ae34a160413d82fbd1299bb587baec713803eac8fd373e26b3fb16f77e7c9169"
+    },
+    "knowledge/official-incidents/2": {
+      "text": "先保存原文，再整理记录。原始响应、事件时间和精确修订一起保留。摘要可以回到原始快照，官方未提供的字段继续保持未知。",
+      "src": "assets/narration/knowledge-official-incidents-03.mp3",
+      "duration": 13.896,
+      "sha256": "5b3b5f47db6e21dd1964d42e6f2070164f083ace6b19b24b7b23a1df09ba64dc",
+      "content_sha256": "4317dcc40f30ac5b3d3e4082c24eba3a066cb4de0a5e45f60c5bfd1a8f433291"
+    },
+    "knowledge/official-incidents/3": {
+      "text": "同一事件，要区分重放与更新。重复采集不会重复创建工作，官方更新则形成后继修订。稳定来源标识和修订摘要支持幂等，历史快照继续可查。",
+      "src": "assets/narration/knowledge-official-incidents-04.mp3",
+      "duration": 16.08,
+      "sha256": "41a52549c607d20b7da4d2ac4de03c2a83ed2e0132f565e891b8a005900263bf",
+      "content_sha256": "18181ab620145b26a903f9326f4b3b7bd8bb2ec75be5a3ab2436d13cb4a4684f"
+    },
+    "knowledge/official-incidents/4": {
+      "text": "采集结果进入已有流程。来源和任务关联到现有权威实体，待审核资料沿候选链路处理。采集完成不会自动把资料发布为知识。",
+      "src": "assets/narration/knowledge-official-incidents-05.mp3",
+      "duration": 14.016,
+      "sha256": "024cbc05ecd6f6bdfdb2e04b23378762edbb9e13b4a0c26e6de7ce8f6eba372b",
+      "content_sha256": "b6c98c4f394f8ffaa7ef13abf14582da7ea7f127abba665d8938fa4c7431bc8f"
+    },
+    "knowledge/official-incidents/5": {
+      "text": "来源公开，工作资料仍受权限约束。每次读取和引用都核对当前授权与精确修订。撤权后，旧报告也不能成为回读来源的旁路。",
+      "src": "assets/narration/knowledge-official-incidents-06.mp3",
+      "duration": 13.872,
+      "sha256": "1cdf4b2ba509e5e12da2a8b86d4ef69521c8bb7cba3e751cf6373278d883bb5c",
+      "content_sha256": "044a3ae983b71dc105004ca01ff07e3fb9a4146851caaddd3d44bb9a37cff874"
+    },
+    "knowledge/incident-report/0": {
+      "text": "先选择有出处的复盘模板。这里参考 PagerDuty 的开放模板，保留许可、署名和中文字段说明。模板帮助组织内容，但不能证明报告结论正确。",
+      "src": "assets/narration/knowledge-incident-report-01.mp3",
+      "duration": 14.832,
+      "sha256": "cbf068092a8fbd9192da9b6e681a84127f02b21028045a36eec5d865a4519492",
+      "content_sha256": "e464af68af8462f70ebba5278a4c1409c4b0fed7dfab660c7cf99d892d952810"
+    },
+    "knowledge/incident-report/1": {
+      "text": "先整理事实，再写判断。把官方时间线、状态变化和事件说明绑定到证据。官方原文与本地投影字段分别标明，每条事实都能回到具体来源修订。",
+      "src": "assets/narration/knowledge-incident-report-02.mp3",
+      "duration": 15.864,
+      "sha256": "d6e37ffa478586330f99bba5949d54a38289ecd98848582cdcb11927fc2f7218",
+      "content_sha256": "3035c6b9dad094a437de9fcc3c90f7fd3041a18a9595a0059e3e1bdf15bbb5fe"
+    },
+    "knowledge/incident-report/2": {
+      "text": "不知道的内容，明确写出来。官方没有说明的根因、企业内部影响和损失保持未知。建议需要确认，生成摘要也仍然需要逐项核对来源。",
+      "src": "assets/narration/knowledge-incident-report-03.mp3",
+      "duration": 13.944,
+      "sha256": "ec5912cec40ff722659b9acc580235738482a87adc1987b1b6972d684e684927",
+      "content_sha256": "e0a51b5c0bc4604344c5c933564ab0d5fdd8e1c91e9c934877376ce7f691f1da"
+    },
+    "knowledge/incident-report/3": {
+      "text": "报告先以草稿交付。事实、时间线、证据缺口和待审核建议放在一起，方便补充内部资料。结构校验约束字段，不能替代根因分析和业务验收。",
+      "src": "assets/narration/knowledge-incident-report-04.mp3",
+      "duration": 15.744,
+      "sha256": "99488f754f2f391a14c9d436f115fbd2806cda8e3006df09647ddcb71ce438f3",
+      "content_sha256": "81996d9aa9bcacf0376dcb707038a4414e07e11c09f65972c6d703d43aa704a4"
+    },
+    "knowledge/incident-report/4": {
+      "text": "另一位审核者核对结论。检查证据、推断与内部影响是否得到确认。审核绑定精确候选修订，继续遵守作者不能自审自批的规则。",
+      "src": "assets/narration/knowledge-incident-report-05.mp3",
+      "duration": 14.208,
+      "sha256": "2e656fc67ff3d49b6c381fad64f64a974039a9a500eb85583876e9163467a070",
+      "content_sha256": "5f04751255756314506c29c2a0dc295b8e871aafae92d4f9bc614572a58b107f"
+    },
+    "knowledge/incident-report/5": {
+      "text": "审核与发布分别决定。通过独立审核后，还需要显式晋升。扩大共享范围另行授权。采集或生成报告都不会自动发布为共享知识。",
+      "src": "assets/narration/knowledge-incident-report-06.mp3",
+      "duration": 14.208,
+      "sha256": "dbfc9e50b031142716140a79488a62b3151035b37e097b5828d272dd02d4d996",
+      "content_sha256": "032195e75f2a72f9edbb5b9a9e4ef998b8cc47ce20aba79fb8afee5c295b5fb8"
+    },
+    "knowledge/context-receipts/0": {
+      "text": "上下文依据从本次任务的授权范围开始。材料绑定当前身份和精确来源，继续复用已有检索与装配流程，不另建平行的权威状态。",
+      "src": "assets/narration/knowledge-context-receipts-01.mp3",
+      "duration": 13.512,
+      "sha256": "d9ca3bccda70e7697b2146d31158f0a0a7c0f8e09f003ea51dd1481eb10340df",
+      "content_sha256": "bd4cfb00ed9c21974c279960845bd451729d7f996746f52ecae5db5799e5a0a1"
+    },
+    "knowledge/context-receipts/1": {
+      "text": "为必要材料选择合适的表示。在预算内选择原文或已有表示，保留前提与输出空间。必要依据装不下时，不能静默截断后继续发送。",
+      "src": "assets/narration/knowledge-context-receipts-02.mp3",
+      "duration": 13.992,
+      "sha256": "ed9a621857cb003f7c7e7b2ec914ed004c2b742ab0e47a138a827cc51672bc45",
+      "content_sha256": "0ef07451b3858028f25af7f572137dba2f2874030cd74eccfa20741884190530"
+    },
+    "knowledge/context-receipts/2": {
+      "text": "看见选用了什么，也看见遗漏了什么。上下文依据展示选用、遗漏和降级原因，并关联来源修订，帮助定位回答中的问题。",
+      "src": "assets/narration/knowledge-context-receipts-03.mp3",
+      "duration": 12.288,
+      "sha256": "6ac69e504e40fd4c04cf696bc02fdcc0ec08fad60a358c0a6332aa6961e0b8ac",
+      "content_sha256": "304de67c9ba875bb386075d0ffcced47f98a96e4da49b33c2b1d6aa7bfa17acb"
+    },
+    "knowledge/context-receipts/3": {
+      "text": "准备过的材料，使用时还要核对。权限、有效期或来源修订发生变化，旧的准备结果不能直接沿用。当前授权和依赖检查继续生效。",
+      "src": "assets/narration/knowledge-context-receipts-04.mp3",
+      "duration": 14.688,
+      "sha256": "5753264eefee6b88a9fa5ae5a2625ad0f5d83a997cc2c54d5f4749cb00740697",
+      "content_sha256": "dc70923156f5964bcdcdcdb74d47f4cfa57edc056f6f4c8ebb7b5927530f5094"
+    },
+    "knowledge/context-receipts/4": {
+      "text": "准备完成，不代表已经发送。预览与模型派发分别记录。准备结果还要通过最终传输、共享容量和执行权检查，才进入实际请求。",
+      "src": "assets/narration/knowledge-context-receipts-05.mp3",
+      "duration": 13.92,
+      "sha256": "37319038b54f09eb9dd3d5e1a86bfd8c10db656a7c0e56dfc55aedf1e1bb7779",
+      "content_sha256": "7bf92749381918225062f017c7614dfd60827b1fd31a3745a182758a60620bc4"
+    },
+    "knowledge/context-receipts/5": {
+      "text": "测量实际成本，保留收益边界。本版没有启用查询或有效期缓存，共享编码实验也保持关闭。不会把准备阶段的耗时测量说成节省 Token 或费用的保证。",
+      "src": "assets/narration/knowledge-context-receipts-06.mp3",
+      "duration": 15.936,
+      "sha256": "d9f7ba55be58d2826ef7e23349bd94b5247e2e3219e69f4833e24cc20c55a95b",
+      "content_sha256": "a4cb008cb07b865123ccae60262ebd8d7b1d53d131a5abf001651b5e4db8e5cf"
     },
     "collaboration/chapter-introduction/0": {
       "text": "接下来是协作与执行。这一页介绍目标如何拆成任务，以及不同智能体如何交接责任、接续工作。我们会依次看责任交接、执行图与循环，以及共享上下文协作。",
@@ -457,11 +584,11 @@ window.CXNarration = {
       "content_sha256": "5446411c59badd216d58b99b5fec449796f6cce80398f5f6e456dee9615662af"
     },
     "runtime/chapter-introduction/0": {
-      "text": "接下来是模型与运行。这一页介绍一次模型请求如何被核验、执行和跟踪。我们会先看请求的完整生命周期，再看超时或结果未知时如何核对与恢复。",
+      "text": "接下来是模型与运行。我们会依次看请求的完整生命周期、未知结果与恢复，以及本版的最终传输检查。重点是核对真正发送的输入、实际返回的输出，并看清检查覆盖的边界。",
       "src": "assets/narration/runtime-chapter-introduction-01.mp3",
-      "duration": 15.96,
-      "sha256": "9127c82bf5bf6fb53f1920cfe25884aa36c98ef88f44484efd086d1dbb041612",
-      "content_sha256": "cb72067518759b66183b0a8cf0824c611f7393169ac362b9d5dc7b0faf3c9b7d"
+      "duration": 18.336,
+      "sha256": "8b27a19d35ce875f9cce0f871c220641a267c294e9986af3b02698524e83f34f",
+      "content_sha256": "4fadd6081df3df3d595171dd3f9ead5fe36bab29ed810ed5ab14040b5230bb27"
     },
     "runtime/request/0": {
       "text": "模型调用从经过核验的配置开始。流式、结构化和工具能力，要依据实际探测，不能只看模型名称。",
@@ -546,6 +673,48 @@ window.CXNarration = {
       "duration": 9.432,
       "sha256": "e47a1ca79143b2d15425bfb04eb08f93e2dbc7230d4510a214e15c2c87b1d7ef",
       "content_sha256": "0764b34f710c8b7183537ca7d5fa4ed26095c5461e62be0bd7476c4125e092e9"
+    },
+    "runtime/final-transport/0": {
+      "text": "最终传输检查放在实际请求组装之后。消息、工具和附件字段一起进入最终的服务商请求 JSON，检查不只停留在较早的上下文片段。",
+      "src": "assets/narration/runtime-final-transport-01.mp3",
+      "duration": 14.496,
+      "sha256": "c492103cd4085c8b99725ad76c28967712b11d1e3a1b7853d689f40d920e3f5e",
+      "content_sha256": "280002c3fcb2ae1c2f8f57fa446016c1fd06328fdd16403df69dddc637685b06"
+    },
+    "runtime/final-transport/1": {
+      "text": "实际输入还要再过一次检查。按当前披露范围和预算核对最终 JSON 文本，不通过就阻止发送。检查附件字段中的文字，不等于理解托管图片的像素含义。",
+      "src": "assets/narration/runtime-final-transport-02.mp3",
+      "duration": 16.392,
+      "sha256": "2036d8b6c870cdd8fb56e1f6bb8de1bf6fcae0f0665c642c2d440987136e129f",
+      "content_sha256": "5b9ed2ae3b4a286aaf8c9abe65005724e59880728ee13053bfcebe7f53e17007"
+    },
+    "runtime/final-transport/2": {
+      "text": "检查通过后，按同一份序列化字节发送。公共传输路径避免检查一份、重新拼装另一份。独立派发票据与原始字节的比对，仍有明确的验证边界。",
+      "src": "assets/narration/runtime-final-transport-03.mp3",
+      "duration": 14.976,
+      "sha256": "6ce9bff1107e70a15617064c42a22b73d658356ec914b6b79e777b3138e8f9da",
+      "content_sha256": "d531309648e6429cc6c213fb265c4f533e8962bb645e9a9b7a924243ae96eb69"
+    },
+    "runtime/final-transport/3": {
+      "text": "输入合格，还需要当前执行权。来源授权、共享容量和执行租约继续检查。传输检查不会扩大权限，也不会让失效的工作进程继续发送。",
+      "src": "assets/narration/runtime-final-transport-04.mp3",
+      "duration": 14.616,
+      "sha256": "8c24d53ca6b4a55517542d6835832cc96b40335a9ec06e73e99fac6df0ab851d",
+      "content_sha256": "381d8eb958509fbebf9ff75cfb623dbd345bb204d800c63772d4c947b924f477"
+    },
+    "runtime/final-transport/4": {
+      "text": "收到响应后，核对完整输出。拒答、截断、结构与业务结论分别判断。结构校验通过，不等于事实正确，也不等于业务验收已经通过。",
+      "src": "assets/narration/runtime-final-transport-05.mp3",
+      "duration": 14.28,
+      "sha256": "cfc8305c35ef8947d0eac9cda4d4ef46ed1c421a2aa18ef69686149679074331",
+      "content_sha256": "a58773fb05195db7aa9cbac8069003d384e744576710f64635122035449ab2af"
+    },
+    "runtime/final-transport/5": {
+      "text": "最后看清覆盖范围。托管图片的像素语义和独立票据字节审计仍需要额外验证。本版不宣称全面的数据防泄漏，也不把文本检查当成所有附件语义的证明。",
+      "src": "assets/narration/runtime-final-transport-06.mp3",
+      "duration": 15.792,
+      "sha256": "52a427f7c4b0203d0097fac807683a6b62f588104b6e02b9490a15d3cc9e65c8",
+      "content_sha256": "070cddeaacfaa2dbd786aba7ef93978d86e443b9f298a381ac08f6ab110647c3"
     },
     "integrations/chapter-introduction/0": {
       "text": "接下来是能力与接入。这一页介绍川序如何按契约连接工具、技能和外部智能体。我们会先看技能与工具的受控调用，再看协议与网关的版本化接入。",
@@ -730,5 +899,5 @@ window.CXNarration = {
       "content_sha256": "c60e248dccc507e03f737d230528ad8e3a40b44c18531495f6be84ba3caee689"
     }
   },
-  "audio_seconds": 1031.952
+  "audio_seconds": 1394.232
 };

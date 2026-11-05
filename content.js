@@ -1,4 +1,4 @@
-/* Product explanations based on the Chuanxu v5.0.3 whitepaper and guides. */
+/* Product explanations based on the Chuanxu v5.0.4 release and product guides. */
 (() => {
   const node = (id, title, sub, icon = 'box') => ({ id, title, sub, icon });
   const step = (title, business, technical, active, event) => ({ title, business, technical, active: active.split(' '), event });
@@ -16,8 +16,8 @@
   const pages = {
     knowledge: {
       headline: ['让知识有来源，', '让回答有依据。'],
-      intro: '从资料入库到引用回答，把来源、版本、时间与访问范围贯穿起来。跨任务的记忆与便笺，也保留各自的来龙去脉。',
-      tags: ['五类检索信号', '独立审核与发布', '时态记忆'],
+      intro: '从授权检索、知识入库和时态记忆，到官方事件采集、故障复盘草稿与上下文依据，把来源、版本、时间和访问范围贯穿起来。',
+      tags: ['授权检索与记忆', '官方事件与复盘', '上下文依据'],
       question: '一份资料，如何成为可靠的工作依据？',
       scenes: [
         scene('retrieval', '授权检索', '以“当前版本的部署条件”为例，追踪问题如何变成有来源的回答。', [
@@ -55,6 +55,36 @@
           step('先知道有什么，再加载需要的。', 'Agent 先发现资产目录，再读取任务需要的精确版本。', '每次加载重新校验来源与权限，避免整本手册进入所有请求。', 'discover', 'DISCOVER → metadata first'),
           step('上下文要装得下，也不能漏条件。', '保留系统提示、工具协议、必要证据与输出空间。', '区分已知 tokenizer 计数与保守估算；预算不足时阻止派发。', 'context', 'BUDGET → required evidence retained'),
           step('把工作进度留下，把正式结论审清。', '便笺记录已验证事实、放弃的方法和下一步，复盘先成为候选。', '便笺受 Work、Handoff、期限与来源授权检查；中间想法不会自动发布为知识。', 'reflect', 'REFLECT → candidate, then review'),
+        ]),
+        scene('official-incidents', '官方事件采集', '用官方公开状态页，保留可以核对的事件来源。', [
+          node('feed','选择官方来源','GitHub · Cloudflare','plug'),node('fetch','有界采集','HTTP · 大小 · 时间','search'),node('raw','保留原始快照','原文 · 摘要 · 修订','file'),node('replay','识别重放与更新','幂等 · 后继版本','refresh'),node('candidate','接入现有流程','Source · Task · 候选','layers'),node('access','持续检查授权','读取 · 引用 · 撤权','shield'),
+        ], [
+          step('从官方状态页开始。','以 GitHub 和 Cloudflare 的官方事件接口为真实来源，保留出处与事件标识。','采集器限定受支持的来源和响应契约；公开事件不能代表企业内部影响。','feed','SOURCE → official incident feed'),
+          step('采集有界，失败保留原状。','限定请求时间、响应大小和事件数量，失败时不以空结果覆盖原资料。','HTTP 响应与结构先校验，再进入后续处理；原始失败单独留证。','fetch','FETCH → bounded response'),
+          step('保存原文，再形成可读记录。','原始响应、事件时间和精确修订一起保留，便于回到官方记录。','摘要关联原始快照和来源位置；未知字段保持未知，不补成官方事实。','raw','SNAPSHOT → exact provenance'),
+          step('同一事件，区分重放和更新。','重复采集不重复创建工作；官方更新产生可追溯的后继修订。','稳定来源标识与修订摘要支持幂等，保留先前快照和失败记录。','replay','REVISION → idempotent intake'),
+          step('进入已有的任务与候选流程。','采集结果关联 Source 和 Task，待审核资料沿现有候选链路处理。','复用权威实体与版本管线，不建立旁路知识库，也不自动发布。','candidate','CANDIDATE → existing pipeline'),
+          step('来源公开，平台读取仍有规则。','工作资料和引用继续接受当前权限检查；撤权后不能通过旧报告回读。','精确修订、来源绑定与当前授权共同校验，历史引用不代授访问权。','access','ACCESS → current authorization'),
+        ]),
+        scene('incident-report', '故障复盘草稿', '把官方事实、未知信息和待审核建议放进同一份复盘草稿。', [
+          node('template','选用复盘模板','PagerDuty · 许可保留','file'),node('facts','整理已知事实','时间线 · 状态 · 依据','clock'),node('gaps','显式保留缺口','根因 · 内部影响未知','search'),node('draft','形成报告草稿','事实子集 · Schema','layers'),node('review','独立审核','核对来源与推断','user'),node('promote','显式晋升','私有知识 · 另行共享','book'),
+        ], [
+          step('用有出处的模板组织复盘。','参考 PagerDuty 开放复盘模板，保留许可、署名和中文字段说明。','模板、事实子集 Schema 与来源声明随研究资料保留；模板本身不证明内容正确。','template','TEMPLATE → attributed structure'),
+          step('先排事实，再写判断。','把官方时间线、状态变化和事件说明关联到可回读的证据。','每条事实保留来源修订与位置；官方原文和本地投影字段分别标明。','facts','FACTS → source-bound timeline'),
+          step('不知道的内容，明确写出来。','官方未说明的根因、企业内部影响与损失保持未知，建议标为待确认。','不从公开状态页推定租户影响；生成摘要仍需逐项核对来源。','gaps','GAPS → unknown remains unknown'),
+          step('先交付草稿，保留证据与缺口。','报告展示事实、时间线、缺口和待审核建议，方便团队补充内部资料。','结构校验约束字段与事实子集，不能代替根因分析或业务验收。','draft','REPORT → draft with evidence'),
+          step('让另一位审核者核对结论。','检查结论是否有证据，推断是否标清，内部影响是否得到实际确认。','复用候选和独立审核规则，审核绑定精确修订；作者不能自审自批。','review','REVIEW → independent decision'),
+          step('审核与发布，分别作出决定。','经过独立审核后才能显式晋升；扩大共享范围还需要授权。','继续使用既有候选与版本管线，采集或生成报告都不自动发布知识。','promote','PROMOTE → explicit action'),
+        ]),
+        scene('context-receipts', '上下文依据', '看清模型输入选用了什么、遗漏了什么，以及发送前还要检查什么。', [
+          node('scope','确定任务与范围','当前身份 · 精确来源','shield'),node('select','选择上下文表示','原文 · 摘要 · 预算','layers'),node('receipt','展示装配依据','选用 · 遗漏 · 降级','file'),node('recheck','重新核对依赖','修订 · 有效期 · 权限','refresh'),node('prepare','区分准备与发送','准备完成 ≠ 已派发','clock'),node('measure','保留测量边界','耗时 · 缓存默认关闭','pulse'),
+        ], [
+          step('从本次任务的授权范围开始。','依据当前身份与任务寻找材料，每份资料仍绑定精确来源。','复用既有检索与上下文装配链路，依据记录不建立平行权威状态。','scope','SCOPE → exact dependencies'),
+          step('为必要材料选择合适的表示。','在预算内选择原文或已有表示，保留必要条件和回答空间。','既有预算和表示策略继续生效；必要依据装不下时不能静默截断后发送。','select','CONTEXT → bounded representation'),
+          step('看见为什么选它，也看见遗漏。','把选用、遗漏和降级原因放在上下文依据中，帮助定位回答问题。','沿用装配记录，关联来源修订与准备结果；不是另建一套事实来源。','receipt','RECEIPT → selection explained'),
+          step('准备过的材料，使用时仍需核对。','权限、有效期或来源修订变化后，不能直接沿用旧的准备结果。','当前授权与依赖继续重验，不以摘要、旧依据或缓存绕过撤权。','recheck','RECHECK → current dependencies'),
+          step('准备完成，不代表已经发送。','分别查看上下文准备与模型派发状态，避免把预览当成真实请求。','准备结果需要通过最终传输、容量和执行权检查，才进入实际发送。','prepare','PREPARED → not yet dispatched'),
+          step('观察耗时，保留收益边界。','根据实际测量判断重复准备的成本，不预先承诺节省 Token 或费用。','本版保留授权重验，未启用 query 或 TTL 缓存；共享编码实验保持关闭。','measure','MEASURE → observed cost only'),
         ]),
       ],
       experiment: { title: '共享知识，什么时候可以发布？', copy: '切换条件，观察入库与共享之间的区别。', type: 'knowledge', toggles: ['来源与责任信息完整', '独立审核已通过', '共享范围已获授权'] },
@@ -123,7 +153,7 @@
       cards: [card('user','Human 与 Agent','分别确认身份、责任、会话和运行状态。','组织、角色、实例及凭证共同参与授权。'),card('shield','安全域与资源','让业务协作有边界，避免对话关系扩大数据权限。','双主体交集、资源范围、来源修订和披露检查。'),card('lock','运行隔离','在具备所需主机条件时执行，缺少证据则拒绝。','独立身份、namespace、cgroup v2、seccomp 等按契约核验。'),card('file','企业治理','面向审批、审计管理、LDAP、保留与合规职责。','按企业版交付范围启用；社区版仍保留公共路径必要审计。')],
     },
     runtime: {
-      headline: ['让每一次模型调用，', '成为可管理的过程。'], intro: '用明确的 Profile、能力证据和容量协调组织请求。排队、输入、输出、取消与未知结果分别记录，让运维能够判断下一步。', tags: ['Profile 与路由', '容量协调', '用量与恢复'], question: '当模型很忙，或结果没有回来，应该怎么做？',
+      headline: ['让每一次模型调用，', '成为可管理的过程。'], intro: '从请求生命周期、未知结果恢复到最终传输检查，用明确的 Profile、能力证据和容量协调组织请求，分别核对输入、输出与实际状态。', tags: ['Profile 与路由', '最终传输检查', '用量与恢复'], question: '当模型很忙，或结果没有回来，应该怎么做？',
       scenes: [
         scene('request','请求生命周期','从配置模型到记录结果，分清每个阶段。',[node('profile','选择 Profile','配置 · 修订 · 能力证据','spark'),node('budget','核验输入预算','系统 · 工具 · 证据 · 输出','layers'),node('capacity','等待共享容量','同一权威协调器','clock'),node('dispatch','正式派发','原授权 · 当前租约','send'),node('response','接收并校验','拒答 · 截断 · Schema','check'),node('usage','记录观测与用量','排队 · 首内容 · 总时长','pulse')],[
           step('从经过核验的配置开始。','选择明确修订的 Profile，按实际探测证据使用流式、结构化或工具能力。','模型名或 /v1 地址不能证明能力；TEXT_JSON 与精确 schema 的 NATIVE_STRICT 分别管理。','profile','PROFILE → verified capability'),
@@ -140,6 +170,16 @@
           step('先查清，之前究竟发生了什么。','检查真实请求、进程或可信 Provider 记录。','租约过期不能替代请求完成观测；保留原超时与失败证据。','reconcile','RECONCILE → actual lifecycle'),
           step('恢复需要精确的决定。','由授权者确认目标、版本、预算和可能的外部副作用。','重启不重置处理预算；新令牌不替代旧请求的已撤销凭证。','decision','RECOVERY → bounded approval'),
           step('依据真实状态，继续工作。','已完成就读取结果，未执行则按批准重试，副作用不明则先查询。','恢复接受、派发、成功和业务批准分别记录。','continue','CONTINUE → observed outcome'),
+        ]),
+        scene('final-transport', '最终传输检查', '核对真正发送的 Provider 输入，并保留附件与独立审计边界。', [
+          node('assemble','组装完整请求','消息 · 工具 · 附件字段','layers'),node('inspect','检查最终 JSON','文本 · 披露 · 预算','search'),node('serialize','固定序列化结果','同份 bytes 发送','file'),node('send','通过后再发送','当前授权 · 容量 · 租约','send'),node('output','校验完整输出','拒答 · 截断 · Schema','check'),node('limits','保留检查边界','图片语义 · 独立字节审计','shield'),
+        ], [
+          step('把检查放到实际请求组装之后。','同时核对消息、工具和附件字段，避免只查看较早的上下文片段。','公共 native transport 汇总最终 Provider JSON；覆盖结构中的文本字段。','assemble','ASSEMBLE → complete provider JSON'),
+          step('最终输入，还要再过一次检查。','按当前披露范围和预算核对实际 JSON 文本，不通过就阻止发送。','检查包含工具与附件字段中的文本；这不等于理解托管图片的像素语义。','inspect','INSPECT → final text checked'),
+          step('检查通过的内容，按同份字节发送。','避免检查一份请求、发送另一份重新拼装的内容。','公共传输路径复用同份序列化 bytes；独立 DispatchTicket 原始字节比对仍有边界。','serialize','SERIALIZE → same bytes'),
+          step('输入合格，还要具备当前执行权。','发送继续接受来源授权、共享容量和当前执行租约检查。','传输检查不会代授来源权限，也不会绕过容量协调或失效 Worker 限制。','send','SEND → current authority'),
+          step('返回后，核对完整输出。','分别记录拒答、截断、结构有效性与业务结论，不能见到响应就判为成功。','完整输出校验复用既有响应链路，结构通过仍不等于事实或业务验收通过。','output','OUTPUT → complete response checked'),
+          step('看清覆盖范围，再作出判断。','托管图片的像素含义和独立票据字节审计仍需额外验证。','本版不宣称全面 DLP，也不以文本校验覆盖所有附件语义与独立原始字节证明。','limits','BOUNDARY → explicit coverage'),
         ]),
       ],
       experiment: { title: '超时以后，可以立即重试吗？', copy: '切换为不同观测状态，查看下一步。', type: 'runtime', options: ['远端结果未知', '已确认远端完成', '已确认未发出'] },
@@ -209,5 +249,5 @@
       technical: `依次介绍：${pages[chapter.id].scenes.map(scene => scene.name).join('、')}。`,
       active: [], event: 'CHAPTER INTRODUCTION' }],
   }]));
-  window.CX = { chapters, pages, overview, introduction, chapterIntroductions, version: '5.0.3' };
+  window.CX = { chapters, pages, overview, introduction, chapterIntroductions, version: '5.0.4' };
 })();
