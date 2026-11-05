@@ -46,7 +46,8 @@
   let motion = !matchMedia('(prefers-reduced-motion: reduce)').matches;
   try { if (localStorage.getItem('cx-explainer-motion') === 'off') motion = false; } catch {}
   document.documentElement.dataset.motion = motion ? 'on' : 'off';
-  let presentation = new URLSearchParams(location.search).get('present') === '1' && !!data;
+  const tourStage = new URLSearchParams(location.search).get('tour') === 'stage' && parent !== window;
+  let presentation = tourStage || (new URLSearchParams(location.search).get('present') === '1' && !!data);
   const toast = message => {
     const element = document.querySelector('.toast');
     element.textContent = message;
@@ -114,6 +115,7 @@
     return `<main id="main" class="container topic-layout">${sidebar()}<div class="topic-body"><section class="topic-intro"><div class="eyebrow">${chapter.number} / ${chapter.en}</div><h1>${data.headline[0]}<br><span>${data.headline[1]}</span></h1><p>${data.intro}</p><div class="tag-row">${data.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></section><section class="topic-demo" id="demo"><h2 class="demo-title">${data.question}</h2><div class="scenario-tabs" role="tablist" aria-label="演示场景">${data.scenes.map((s,i)=>`<button class="scenario-tab" id="tab-${s.id}" role="tab" aria-controls="scene-panel" aria-selected="${i===0}" tabindex="${i===0?'0':'-1'}" data-scene="${s.id}">${icon(s.nodes[0].icon)}${s.name}</button>`).join('')}</div><div class="demo-workbench" id="scene-panel" role="tabpanel" aria-labelledby="tab-${data.scenes[0].id}"></div><p class="scenario-caption">${icon('info')}点击节点或序号分步查看；播放时可暂停。所有内容均为本地流程示意。</p><div class="presentation-nav"><a href="${url(previous.id)}?present=1">${icon('left')}${previous.name}</a><a href="${url(next.id)}?present=1">${next.name}${icon('arrow')}</a></div></section>${experiment()}<section class="topic-cards"><div class="topic-section-head"><h2>这一章的能力</h2><span>FUNCTION → IMPLEMENTATION</span></div><div class="feature-grid">${data.cards.map(c=>`<article class="feature-card reveal">${icon(c.icon)}<h3>${c.title}</h3><p>${c.copy}</p><details class="implementation-detail"><summary>查看实现</summary><p>${c.implementation}</p></details></article>`).join('')}</div></section><nav class="next-chapter" aria-label="前后章节"><a class="next-link" href="${url(previous.id)}">${icon('left')}${previous.name}</a><a class="next-link" href="${url(next.id)}">${index===chapters.length-1?'返回总览':'下一章 · '+next.name}${icon('arrow')}</a></nav></div></main>`;
   }
   document.getElementById('app').innerHTML = header() + (data ? topic() : home()) + footer();
+  if (!tourStage) document.querySelector('.presentation-toggle').insertAdjacentHTML('beforebegin', `<button class="text-btn tour-entry">${icon('refresh')}<span>全局演示</span></button>`);
   document.title = `${data?chapter.name+' · ':''}川序产品交互图解`;
   document.body.classList.toggle('presentation',presentation);
   let revealObserver;
@@ -155,8 +157,9 @@
   };
   let stopAnimation = () => {};
   let restartAnimation = () => {};
+  let showTourStep = () => {};
   if (!data) {
-    let heroStep=0, playing=motion, timer;
+    let heroStep=0, playing=motion&&!tourStage, timer;
     const board = document.querySelector('.hero-board');
     const update = () => {
       updateGraph(board,overview,heroStep);
@@ -185,6 +188,7 @@
     });
     stopAnimation=()=>{playing=false;clearInterval(timer);update();};
     restartAnimation=()=>{playing=true;update();schedule();};
+    showTourStep=(_scene,step)=>{stopAnimation();heroStep=Math.max(0,Math.min(overview.steps.length-1,step));update();};
     addEventListener('visibilitychange',schedule);
     update();schedule();
   } else {
@@ -262,6 +266,14 @@
       }
     });
     stopAnimation=()=>{playing=false;schedule();update();};
+    showTourStep=(scene,step,readingMode)=>{
+      stopAnimation();
+      const selected=data.scenes.find(s=>s.id===scene)||data.scenes[0];
+      const changed=selected!==current;
+      current=selected;index=Math.max(0,Math.min(current.steps.length-1,step));
+      mode=readingMode==='technical'?'technical':'business';
+      if(changed)render();else update();
+    };
     addEventListener('visibilitychange',schedule);
     render();
     const e=data.experiment, result=document.querySelector('.experiment-result');
@@ -313,6 +325,7 @@
     document.querySelector('.topic-demo').scrollIntoView({block:'start'});updateProgress();
     if(presentation)toast('讲解模式：聚焦动效，按 Esc 退出。');
   });
-  addEventListener('keydown',e=>{if(e.key==='Escape'&&presentation)document.querySelector('.presentation-toggle').click();});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&presentation&&!tourStage&&!document.body.classList.contains('tour-running'))document.querySelector('.presentation-toggle').click();});
+  window.CXDemo = { show: showTourStep, stop: () => stopAnimation(), icon };
   updateProgress();
 })();
