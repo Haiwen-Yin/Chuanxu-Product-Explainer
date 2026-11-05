@@ -44,4 +44,162 @@
 @media(max-width:720px){.tour-options .tour-rate-button{font-size:10px;padding:6px 8px}.tour-voice-settings{gap:9px;font-size:11px}.tour-rate-hint{font-size:9px}}
 @media(max-width:720px){.tour-introduction{padding:8px}.tour-intro-header{padding:10px 14px;min-height:53px}.tour-intro-header>.stage-status{font-size:9px}.tour-intro-content{padding:22px 20px;gap:18px}.tour-intro-title{font-size:35px;line-height:1.3}.tour-intro-statements{grid-template-columns:1fr;gap:12px;margin-top:0}.tour-intro-statements section{padding:13px 15px}.tour-intro-statements h2{font-size:10px;margin-bottom:5px}.tour-intro-statements p{font-size:12px;line-height:1.9}.tour-intro-topics{gap:6px;margin-top:0}.tour-intro-topics span{font-size:9px;padding:3px 8px}.tour-intro-next{font-size:10px;gap:8px;margin-top:0}}
 @media(max-height:520px) and (min-width:600px){.tour-introduction{padding:8px}.tour-intro-header{padding:7px 14px;min-height:43px}.tour-intro-content{padding:14px 24px;gap:8px}.tour-intro-title{font-size:27px;line-height:1.2}.tour-intro-title br{display:none}.tour-intro-statements{grid-template-columns:.85fr 1.15fr;gap:12px;margin-top:0}.tour-intro-statements section{padding:8px 12px}.tour-intro-statements h2{font-size:9px;margin-bottom:3px}.tour-intro-statements p{font-size:11px;line-height:1.6}.tour-intro-topics{margin-top:0;gap:8px}.tour-intro-topics span{font-size:9px;padding:2px 8px}.tour-intro-next{font-size:9px;margin:0}}
+.tour-rate-control {display:flex;align-items:center;gap:8px;font-size:12px;white-space:nowrap}
+.tour-rate-select {font:inherit;line-height:1.5;min-width:76px;padding:7px 10px;border:1px solid #c4d8f2;border-radius:8px;background:#f1f6fd;color:var(--blue);cursor:pointer}
+@media(max-width:720px) {
+  .tour-options>.tour-rate-control {font-size:10px;gap:5px}
+  .tour-rate-select {min-width:62px;padding:5px 6px}
+}
+/* The tour overview uses the same diagram and reading columns as the chapters. */
+.tour-stage .tour-overview {max-width:none}
+.tour-stage .tour-overview .hero-caption {color:var(--ink)}
+.tour-stage .tour-overview .hero-caption .mono {font-size:inherit;display:inline;margin:0}
+.tour-stage .tour-overview .explanation-block {padding-left:12px}
+.tour-stage .tour-overview .explanation .step-copy {font-size:clamp(13px,1.12vw,17px);line-height:1.95;margin-top:6px}
+@media(max-width:1100px) {
+  .tour-stage .tour-overview .explanation .step-copy {font-size:13px}
+}
+@media(max-width:720px) {
+  .tour-stage .tour-overview .explanation-block {padding-left:9px}
+  .tour-stage .tour-overview .explanation .step-copy {font-size:11px;line-height:1.85;margin-top:5px}
+}
+@media(max-height:520px) and (min-width:600px) {
+  .tour-stage .tour-overview .explanation .step-copy {font-size:11px;line-height:1.85}
+}
+/* Large CSS viewports get larger reading text and a matching content measure. */
+@media screen and (min-width:1600px) {
+  :root {
+    --reading-body:clamp(16px,1vw,28px);
+    --reading-label:clamp(14px,.85vw,24px);
+    --reading-small:clamp(13px,.78vw,22px);
+    --reading-fine:clamp(11px,.62vw,18px);
+    --header-height:clamp(90px,4.5vw,140px);
+    --switch-width:clamp(36px,2.4vw,64px);
+    --switch-height:clamp(22px,1.4vw,34px);
+  }
+  body {font-size:var(--reading-body)}
+  html {scroll-padding-top:calc(var(--header-height) + 24px)}
+  .container {width:min(2240px,calc(100% - 128px),calc(1400px + (100vw - 1600px)*.5))}
+  .site-header {height:var(--header-height)}
+  .progress-bar {top:calc(var(--header-height) - 1px)}
+  .header-inner {gap:clamp(24px,1.5vw,48px)}
+  .brand img {width:clamp(140px,7vw,220px)}
+  .brand-caption,.header-nav {font-size:var(--reading-label)}
+  .header-nav {gap:clamp(24px,1.5vw,48px)}
+  .header-issue,.eyebrow,.version-pill,.stage-eyebrow,.serial {font-size:var(--reading-fine)}
+  .text-btn,.button {font-size:var(--reading-label);padding:clamp(10px,.7vw,20px) clamp(16px,1.1vw,32px)}
+  .icon-btn {width:clamp(42px,2.4vw,64px);height:clamp(42px,2.4vw,64px)}
+  .icon-btn .icon,.button .icon {width:clamp(20px,1.2vw,30px);height:clamp(20px,1.2vw,30px)}
+  .hero {padding-top:clamp(80px,4vw,140px)}
+  .hero-grid {gap:clamp(64px,4vw,140px)}
+  .hero h1 {font-size:clamp(62px,3.2vw,96px)}
+  .hero-description {font-size:var(--reading-body);max-width:32em}
+  .hero-footnote,.principle small {font-size:var(--reading-small)}
+  .principle strong {font-size:var(--reading-label)}
+  .principle-strip {padding-block:clamp(26px,1.8vw,48px)}
+  .hero-board-head {padding:clamp(22px,1.5vw,42px) clamp(26px,1.8vw,48px) 0}
+  .hero-board-footer {padding:clamp(18px,1.3vw,36px) clamp(26px,1.8vw,48px)}
+  .hero-caption,.hero-caption .mono,.stage-status {font-size:var(--reading-small)}
+  .hero-board>.explanation-pair {padding:clamp(24px,1.7vw,46px);gap:clamp(24px,1.5vw,44px)}
+  .hero-board .explanation-label,.explanation-label {font-size:var(--reading-label)}
+  .hero-board .explanation-label span,.explanation-label span {font-size:var(--reading-fine)}
+  .hero-board .step-copy,.explanation .step-copy {font-size:var(--reading-body)}
+  .hero-controls button {width:clamp(34px,2vw,50px);height:clamp(34px,2vw,50px)}
+  .hero-controls .icon {width:clamp(14px,1vw,22px);height:clamp(14px,1vw,22px)}
+  .section {padding-block:clamp(72px,4.5vw,128px)}
+  .section-heading h2 {font-size:clamp(34px,1.8vw,56px)}
+  .section-description {font-size:var(--reading-small);max-width:32em}
+  .chapter-grid,.feature-grid {gap:clamp(20px,1.2vw,36px)}
+  .chapter-card {padding:clamp(28px,1.8vw,48px);min-height:clamp(260px,17vw,400px)}
+  .chapter-card h3 {font-size:clamp(23px,1.3vw,36px)}
+  .chapter-card p,.feature-card p,.work-story p,.story-step {font-size:var(--reading-body);max-width:36em}
+  .card-bottom,.reading-links a,.atlas-footer,.atlas-item p {font-size:var(--reading-small)}
+  .work-story {padding:clamp(44px,3vw,80px);gap:clamp(48px,3vw,88px)}
+  .work-story h2 {font-size:clamp(32px,1.8vw,52px)}
+  .story-step {padding:clamp(18px,1.4vw,32px)}
+  .atlas-item,.feature-card {padding:clamp(26px,1.8vw,48px)}
+  .atlas-item h3,.feature-card h3 {font-size:var(--reading-body)}
+  .topic-layout {grid-template-columns:clamp(220px,11vw,300px) minmax(0,1fr);gap:clamp(48px,2.5vw,80px)}
+  .chapter-sidebar {top:calc(var(--header-height) + 34px)}
+  .sidebar-link {font-size:var(--reading-label);padding:clamp(12px,.8vw,24px) 14px}
+  .sidebar-kicker,.sidebar-link .serial,.sidebar-bottom span {font-size:var(--reading-fine)}
+  .sidebar-bottom p {font-size:var(--reading-small)}
+  .topic-intro h1 {font-size:clamp(48px,2.8vw,80px)}
+  .topic-intro p {font-size:var(--reading-body);max-width:46em}
+  .tag {font-size:var(--reading-small);padding:6px 12px}
+  .demo-title,.topic-section-head h2 {font-size:clamp(22px,1.4vw,38px)}
+  .scenario-tab,.scene-description {font-size:var(--reading-label)}
+  .workbench-top {padding:clamp(20px,1.5vw,40px);gap:24px}
+  .scene-description {max-width:48em}
+  .workbench-main {grid-template-columns:minmax(0,1fr) minmax(360px,36%)}
+  .diagram-panel {padding:clamp(16px,1.2vw,32px)}
+  .flow-svg {max-height:clamp(480px,28vw,760px)}
+  .flow-svg .node-title {font-size:14px}
+  .flow-svg .node-sub {font-size:10px}
+  .flow-svg .db-band-text {font-size:11px}
+  .flow-svg .db-band-sub {font-size:9px}
+  .diagram-index,.diagram-index span:last-child,.graph-caption,.step-counter,.event-label,.event-text {font-size:var(--reading-fine)}
+  .explanation {padding:clamp(24px,1.8vw,48px)}
+  .explanation h3 {font-size:clamp(22px,1.3vw,36px)}
+  .explanation-pair {gap:clamp(24px,1.5vw,40px)}
+  .playback {padding:clamp(18px,1.4vw,36px);gap:24px}
+  .step-marker {width:clamp(32px,2vw,50px);height:clamp(32px,2vw,50px);font-size:var(--reading-fine)}
+  .track-line {width:clamp(14px,1vw,28px)}
+  .play-btn,.speed-select {font-size:var(--reading-label)}
+  .speed-select {width:clamp(66px,4.2vw,100px)}
+  .playback-actions .icon-btn {width:clamp(34px,2vw,50px);height:clamp(34px,2vw,50px)}
+  .scenario-caption,.experiment-heading p,.switch-label,.experiment-result p,.option-btn {font-size:var(--reading-small)}
+  .experiment {padding:clamp(28px,2vw,52px)}
+  .experiment h3,.experiment-result h4 {font-size:var(--reading-body)}
+  .result-status,.topic-section-head span,.implementation-detail h4,.implementation-detail summary,.implementation-detail p {font-size:var(--reading-small)}
+  .switch-track {width:var(--switch-width);height:var(--switch-height)}
+  .switch-track:after {height:calc(100% - 6px);width:auto;aspect-ratio:1}
+  .switch-label input {width:var(--switch-width);height:var(--switch-height)}
+  .switch-label input:checked+.switch-track:after {transform:translateX(calc(var(--switch-width) - var(--switch-height)))}
+  .next-link,.footer-brand,.footer-note {font-size:var(--reading-small)}
+  .footer-note {max-width:46em}
+  .footer-note span {font-size:var(--reading-fine)}
+  .presentation .topic-layout {max-width:none}
+  .presentation .workbench-main {grid-template-columns:minmax(0,1fr) minmax(400px,36%)}
+  .presentation .explanation .step-copy {font-size:var(--reading-body)}
+  .presentation .explanation h3 {font-size:clamp(28px,1.8vw,50px)}
+  .presentation .scene-description,.presentation .scenario-tab,.presentation-nav a {font-size:var(--reading-label)}
+  .presentation .event-text {font-size:var(--reading-fine)}
+  .tour-settings {width:min(clamp(640px,36vw,1080px),calc(100% - 64px));padding:clamp(36px,2vw,64px)}
+  .tour-settings h2 {font-size:clamp(32px,1.8vw,52px)}
+  .tour-settings p,.tour-settings .tour-duration,.tour-sound-settings label,.tour-voice-settings {font-size:var(--reading-body)}
+  .tour-settings .tour-settings-note,.tour-settings .sound-status,.tour-rate-hint {font-size:var(--reading-small)}
+  .tour-toolbar {padding:clamp(20px,1.2vw,34px) clamp(28px,1.7vw,52px);gap:clamp(20px,1.2vw,36px)}
+  .tour-chapter {font-size:var(--reading-body)}
+  .tour-status {font-size:var(--reading-small)}
+  .tour-heading img {width:clamp(34px,2vw,54px);height:clamp(34px,2vw,54px)}
+  .tour-transport,.tour-options {gap:clamp(10px,.7vw,20px)}
+  .tour-options>.tour-rate-control,.tour-rate-select {font-size:var(--reading-label)}
+  .tour-rate-select {min-width:clamp(90px,5.5vw,144px);padding:clamp(10px,.7vw,20px) 14px}
+  .tour-sound-controls input {width:clamp(80px,5vw,144px)}
+  .tour-stage .hero,.tour-stage .topic-layout,.tour-introduction {padding:clamp(18px,1vw,36px)}
+  .tour-stage .hero-board-head,.tour-stage .workbench-top,.tour-intro-header {padding:clamp(20px,1.5vw,48px);min-height:clamp(84px,5vw,148px)}
+  .tour-opening-brand img,.tour-chapter-brand img {width:clamp(144px,7.5vw,260px);height:auto;aspect-ratio:126/43}
+  .tour-opening-brand span,.tour-stage .scene-description {font-size:var(--reading-label)}
+  .tour-stage .hero-board-head .stage-status,.tour-intro-header>.stage-status {font-size:var(--reading-small)}
+  .tour-stage .explanation {padding:clamp(32px,2.5vw,96px)}
+  .tour-stage .explanation h3 {font-size:clamp(30px,2vw,64px)}
+  .tour-stage .explanation .step-copy {font-size:clamp(20px,1.1vw,40px)}
+  .tour-stage .explanation-label,.tour-stage .hero-board .explanation-label {font-size:clamp(16px,1vw,32px)}
+  .tour-stage .explanation-label span,.tour-stage .hero-board .explanation-label span {font-size:clamp(11px,.6vw,20px)}
+  .tour-stage .explanation-pair {gap:clamp(28px,1.6vw,56px);margin-top:clamp(28px,1.6vw,56px)}
+  .tour-stage .step-counter,.tour-stage .event-text {font-size:var(--reading-small)}
+  .tour-stage .hero-board>.explanation-pair {margin:0;padding:clamp(26px,1.8vw,60px);gap:clamp(36px,2.5vw,80px)}
+  .tour-stage .hero-board .step-copy {font-size:clamp(20px,1.15vw,44px)}
+  .tour-stage .tour-overview .explanation .step-copy {font-size:clamp(20px,1.1vw,40px)}
+  .tour-stage .hero-caption {font-size:clamp(22px,1.15vw,44px)}
+  .tour-stage .hero-caption .mono {font-size:var(--reading-small)}
+  .tour-intro-content {padding:clamp(40px,4vw,140px);gap:clamp(24px,1.4vw,48px)}
+  .tour-intro-title {font-size:clamp(64px,5vw,160px)}
+  .tour-intro-statements {max-width:1800px;gap:clamp(28px,2vw,60px)}
+  .tour-intro-statements section {padding:clamp(20px,1.5vw,44px)}
+  .tour-intro-statements h2 {font-size:var(--reading-label)}
+  .tour-intro-statements p {font-size:clamp(20px,1.15vw,40px)}
+  .tour-intro-topics span,.tour-intro-next {font-size:var(--reading-small)}
+}
 @media print{.site-header,.chapter-sidebar,.playback,.experiment,.scenario-tabs,.presentation-nav,.progress-bar,.hero-controls,.header-actions,.tour-settings,.tour-player{display:none!important}.container{width:100%}.topic-layout,.hero-grid{display:block}.topic-intro{page-break-after:avoid}.workbench-main{display:block}.explanation{border:0}.flow-svg{max-height:320px}.hero-board{break-inside:avoid;print-color-adjust:exact}.reveal{opacity:1!important;transform:none!important}.feature-card,.chapter-card{break-inside:avoid}.site-footer{margin-top:20px}}

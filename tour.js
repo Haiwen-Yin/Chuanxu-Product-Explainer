@@ -9,6 +9,27 @@
   if (stage) {
     document.body.classList.add('tour-stage');
     if (pageId === 'index') {
+      // Reuse the chapter workbench layout while retaining the overview updater's nodes.
+      const board = document.querySelector('.hero-board');
+      board.classList.add('demo-workbench', 'tour-overview');
+      const main = document.createElement('div');
+      main.className = 'workbench-main';
+      const diagram = board.querySelector('.hero-stage');
+      diagram.className = 'diagram-panel';
+      const explanation = document.createElement('div');
+      explanation.className = 'explanation';
+      const caption = board.querySelector('.hero-caption');
+      const counter = document.createElement('div');
+      counter.className = 'step-counter';
+      counter.append(caption.querySelector('.mono'));
+      const title = document.createElement('h3');
+      title.className = 'step-title hero-current';
+      title.textContent = caption.querySelector('.hero-current').textContent;
+      caption.replaceChildren(counter, title);
+      explanation.append(caption, board.querySelector('.explanation-pair'));
+      main.append(diagram, explanation);
+      board.append(main, board.querySelector('.hero-controls'));
+      board.querySelector('.hero-board-footer').remove();
       document.querySelector('.hero-board-head').innerHTML = '<div class="tour-opening-brand"><img src="assets/chuanxu-logo-zh.svg" alt="川序 Chuanxu" width="126" height="43"><span>产品交互图解 · v5.0.3</span></div><span class="stage-status"><i class="status-dot"></i>一次工作的流转</span>';
       document.getElementById('app').insertAdjacentHTML('beforeend', `<section class="tour-introduction" hidden aria-labelledby="tour-intro-title"><div class="tour-intro-card"><div class="tour-intro-header"><div class="tour-opening-brand"><img src="assets/chuanxu-logo-zh.svg" alt="川序 Chuanxu" width="126" height="43"><span>产品交互图解 · v5.0.3</span></div><span class="stage-status">认识川序</span></div><div class="tour-intro-content"><div class="eyebrow">MEET CHUANXU / 认识川序</div><h1 class="tour-intro-title" id="tour-intro-title">让智能体运行<br><em>有序、可信。</em></h1><div class="tour-intro-statements"><section><h2>川序是什么</h2><p class="business-copy"></p></section><section><h2>让团队看清工作</h2><p class="technical-copy"></p></section></div><div class="tour-intro-topics"><span>身份与责任</span><span>知识与依据</span><span>任务与协作</span><span>执行与证据</span></div><p class="tour-intro-next">接下来，从一次工作的流转开始。${icon('arrow')}</p></div></div></section>`);
       document.querySelector('.tour-introduction .business-copy').textContent = introduction.steps[0].business;
@@ -43,10 +64,12 @@
     const scenes = c.id === 'index' ? [introduction, { ...overview, id: 'overview', name: '一次工作的流转' }] : pages[c.id].scenes;
     return scenes.flatMap(s => s.steps.map((_, step) => ({ page: c.id, chapter: c.name, scene: s.id, name: s.name, step, count: s.steps.length })));
   });
+  const voiceRates = [1, 1.5, 2, 3];
+  const rateOptions = voiceRates.map(rate => `<option value="${rate}">${rate}×</option>`).join('');
   let voiceRate = 1;
   try {
     const saved = JSON.parse(localStorage.getItem('cx-explainer-tour'));
-    if ([1, 2, 3].includes(saved?.voiceRate)) voiceRate = saved.voiceRate;
+    if (voiceRates.includes(saved?.voiceRate)) voiceRate = saved.voiceRate;
   } catch {}
   const remember = () => { try { localStorage.setItem('cx-explainer-tour', JSON.stringify({ voiceRate })); } catch {} };
   const duration = () => {
@@ -58,8 +81,8 @@
     <dialog class="tour-settings" aria-labelledby="tour-settings-title">
       <form class="tour-settings-form">
         <div class="eyebrow">GLOBAL PRODUCT TOUR</div><h2 id="tour-settings-title">让川序，完整演示一遍。</h2>
-        <p>先认识川序，再从产品总览进入六个主题。共 97 个讲解片段，播完循环；演示自动铺满窗口，并尝试进入全屏。</p>
-        <div class="tour-voice-settings"><span>讲解速度</span><button type="button" class="text-btn tour-rate-button" data-voice-rate>语速 1×</button><span class="tour-rate-hint">点击切换 1× / 2× / 3×</span></div>
+        <p>先认识川序，再从产品总览进入六个主题。共 97 个讲解片段，播完循环；演示在当前窗口播放，可通过底栏按钮进入全屏。</p>
+        <div class="tour-voice-settings"><label for="tour-settings-rate">讲解速度</label><select id="tour-settings-rate" class="tour-rate-select" data-voice-rate>${rateOptions}</select></div>
         <div class="tour-sound-settings"><label><input type="checkbox" data-sound-enabled>播放轻柔背景音</label><label>音量 <input type="range" min="0" max="100" value="22" data-sound-volume aria-label="演示背景音量"></label></div>
         <p class="tour-duration"></p><p class="tour-settings-note">使用预制语音播报，讲解结束后间隔 0.3 秒进入下一步。功能与实现同步展示；暂停或离开标签页时，语音与画面一起停留。按 Esc 退出。</p>
         <div class="tour-settings-actions"><button type="button" class="text-btn tour-cancel">取消</button><button type="submit" class="button">${icon('play')}开始循环演示</button></div>
@@ -70,7 +93,7 @@
       <div class="tour-toolbar">
         <div class="tour-heading"><img src="assets/chuanxu-mark.svg" alt="川序" width="30" height="30"><div><strong class="tour-chapter"></strong><span class="tour-status" role="status" aria-live="polite"></span></div></div>
         <div class="tour-transport"><button class="icon-btn tour-prev" aria-label="全局上一步" title="上一步（←）">${icon('left')}</button><button class="text-btn tour-pause">${icon('pause')}<span>暂停</span></button><button class="icon-btn tour-next" aria-label="全局下一步" title="下一步（→）">${icon('arrow')}</button></div>
-        <div class="tour-options"><button class="text-btn tour-rate-button" data-voice-rate>语速 1×</button><div class="tour-sound-controls"><button class="icon-btn" data-sound-toggle aria-label="关闭背景音"></button><input type="range" min="0" max="100" value="22" data-sound-volume aria-label="背景音量"></div><button class="icon-btn tour-fullscreen" aria-label="进入全屏" title="进入全屏">${icon('expand')}</button><button class="text-btn tour-exit" title="退出演示（Esc）">${icon('close')}<span>退出</span></button></div>
+        <div class="tour-options"><label class="tour-rate-control"><span>语速</span><select class="tour-rate-select" data-voice-rate aria-label="演示语速">${rateOptions}</select></label><div class="tour-sound-controls"><button class="icon-btn" data-sound-toggle aria-label="关闭背景音"></button><input type="range" min="0" max="100" value="22" data-sound-volume aria-label="背景音量"></div><button class="icon-btn tour-fullscreen" aria-label="进入全屏" title="进入全屏">${icon('expand')}</button><button class="text-btn tour-exit" title="退出演示（Esc）">${icon('close')}<span>退出</span></button></div>
         <progress class="tour-progress" max="${playlist.length}" value="1" aria-label="本轮演示进度"></progress>
       </div>
     </section>`);
@@ -150,20 +173,15 @@
     pause.innerHTML = icon(paused ? 'play' : 'pause') + `<span>${voiceFailed ? '重试语音' : paused ? '继续' : '暂停'}</span>`;
     pause.setAttribute('aria-label', voiceFailed ? '重试当前语音' : paused ? '继续全局演示' : '暂停全局演示');
     pause.setAttribute('aria-pressed', String(paused));
-    updateRateButtons();
+    updateRateControls();
     const full = document.fullscreenElement === player;
     const button = player.querySelector('.tour-fullscreen');
     button.innerHTML = icon(full ? 'minimize' : 'expand');
     button.setAttribute('aria-label', full ? '返回窗口演示' : '进入全屏');
     button.title = full ? '返回窗口演示' : '进入全屏';
   }
-  function updateRateButtons() {
-    document.querySelectorAll('button[data-voice-rate]').forEach(button => {
-      const label = `语速 ${voiceRate}×`;
-      if (button.textContent !== label) button.textContent = label;
-      button.setAttribute('aria-label', `当前语速 ${voiceRate} 倍，点击切换为 ${voiceRate % 3 + 1} 倍`);
-      button.title = `点击切换至 ${voiceRate % 3 + 1}×`;
-    });
+  function updateRateControls() {
+    document.querySelectorAll('select[data-voice-rate]').forEach(select => { select.value = String(voiceRate); });
   }
   function schedule() {
     clearClock();
@@ -228,7 +246,7 @@
   }
   document.querySelector('.tour-entry').addEventListener('click', () => {
     window.CXDemo.stop();
-    updateRateButtons();
+    updateRateControls();
     settings.querySelector('.tour-duration').textContent = `当前每轮约 ${duration()}，可在演示中调整。`;
     settings.showModal();
   });
@@ -243,16 +261,18 @@
     document.getElementById('app').inert = true;
     document.getElementById('app').setAttribute('aria-hidden', 'true');
     frame = document.createElement('iframe'); frame.className = 'tour-frame'; frame.title = '川序演示流程与讲解';
-    screen.append(frame); prepareVoice(); send(); pause.focus(); requestFullscreen();
+    screen.append(frame); prepareVoice(); send(); pause.focus();
   });
   pause.addEventListener('click', togglePause);
   player.querySelector('.tour-prev').addEventListener('click', () => advance(-1));
   player.querySelector('.tour-next').addEventListener('click', () => advance(1));
   player.querySelector('.tour-exit').addEventListener('click', exit);
-  document.querySelectorAll('button[data-voice-rate]').forEach(button => button.addEventListener('click', () => {
-    voiceRate = voiceRate % 3 + 1;
+  document.querySelectorAll('select[data-voice-rate]').forEach(select => select.addEventListener('change', () => {
+    const rate = Number(select.value);
+    if (!voiceRates.includes(rate)) { updateRateControls(); return; }
+    voiceRate = rate;
     voice.defaultPlaybackRate = voiceRate; voice.playbackRate = voiceRate;
-    remember(); updateRateButtons();
+    remember(); updateRateControls();
     settings.querySelector('.tour-duration').textContent = `当前每轮约 ${duration()}，可在演示中调整。`;
     if (active) update();
   }));
