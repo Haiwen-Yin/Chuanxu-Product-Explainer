@@ -196,5 +196,12 @@
     nodes: [node('human','人提出目标','问题 · 责任 · 验收','user'),node('agent','Agent 组织工作','能力 · 步骤 · 当前权','nodes'),node('source','读取获准依据','知识 · 记忆 · 精确版本','book'),node('execute','受控执行','模型 · 工具 · 协作','spark'),node('receipt','留下真实结果','回执 · 引用 · 审计','check'),node('continue','接续下一次工作','Task · Work · Handoff','refresh')],
     steps: [step('从一个明确目标开始。','人提出问题、指定责任与验收条件。','目标与主体身份关联。','human','01 / GOAL'),step('让 Agent 在当前授权内组织工作。','选择能力和步骤，形成持久任务。','Task、Step 与运行尝试关联。','agent','02 / PLAN'),step('把获准的资料变成依据。','来源、版本和适用时间跟随上下文。','双主体授权与精确来源。','source','03 / CONTEXT'),step('执行前，再核对一次边界。','模型、工具和协作按具体契约参与。','Profile、凭证、租约与预算核验。','execute','04 / EXECUTE'),step('让结果回到实际发生的过程。','回答关联引用，执行留下回执。','结果与业务验收分别记录。','receipt','05 / EVIDENCE'),step('把工作连续性留给下一位。','带着目标、上下文和未决事项继续。','Work 与 Handoff 保留责任和版本。','continue','06 / CONTINUE')],
   };
-  window.CX = { chapters, pages, overview, version: '5.0.3' };
+  const introduction = {
+    id: 'introduction', name: '认识川序',
+    steps: [{ title: '让智能体运行有序、可信。',
+      business: '川序是以数据库为权威状态源的企业 AI Agent 基础设施。',
+      technical: '连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。',
+      active: [], event: 'WELCOME TO CHUANXU' }],
+  };
+  window.CX = { chapters, pages, overview, introduction, version: '5.0.3' };
 })();
