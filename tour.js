@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const channel = 'chuanxu-product-tour';
-  const { chapters, pages, overview, introduction } = window.CX;
+  const { chapters, pages, overview, introduction, chapterIntroductions } = window.CX;
   const { icon } = window.CXDemo;
   const pageId = document.body.dataset.page || 'index';
   const stage = new URLSearchParams(location.search).get('tour') === 'stage' && parent !== window;
@@ -46,7 +46,35 @@
       const intro = pageId === 'index' && m.scene === introduction.id;
       document.body.classList.toggle('tour-intro-stage', intro);
       if (pageId === 'index') document.querySelector('.tour-introduction').hidden = !intro;
-      if (!intro) window.CXDemo.show(m.scene, m.step);
+      if (!intro) {
+        const chapterIntro = chapterIntroductions[pageId]?.id === m.scene;
+        window.CXDemo.show(chapterIntro ? pages[pageId].scenes[0].id : m.scene, m.step);
+        if (pageId !== 'index') {
+          // A scene change rebuilds the workbench; restore its brand and explanation labels.
+          const top = document.querySelector('.workbench-top');
+          if (!top.querySelector('.tour-chapter-brand')) top.insertAdjacentHTML('afterbegin', '<div class="tour-chapter-brand"><img src="assets/chuanxu-logo-zh.svg" alt="川序 Chuanxu" width="126" height="43"></div>');
+          document.body.classList.toggle('tour-chapter-intro-stage', chapterIntro);
+          document.querySelector('.event-receipt').hidden = chapterIntro;
+          const labels = document.querySelectorAll('.explanation-label');
+          labels[0].innerHTML = chapterIntro ? '本页讲什么<span>CHAPTER</span>' : '看功能<span>FUNCTION</span>';
+          labels[1].innerHTML = chapterIntro ? '接下来看什么<span>UP NEXT</span>' : '看实现<span>IMPLEMENTATION</span>';
+          if (chapterIntro) {
+            const step = chapterIntroductions[pageId].steps[0];
+            document.querySelector('.scene-description').textContent = `${chapters.find(c => c.id === pageId).name} · 本页导览`;
+            document.querySelector('.step-counter').textContent = '本页导览';
+            document.querySelector('.step-title').textContent = step.title;
+            document.querySelector('.business-copy').textContent = step.business;
+            document.querySelector('.technical-copy').textContent = step.technical;
+            document.querySelectorAll('.flow-node,.flow-edge').forEach(n => {
+              n.classList.remove('is-active', 'is-done', 'is-travelled');
+              if (n.matches('.flow-node')) n.setAttribute('aria-pressed', 'false');
+            });
+          } else {
+            const scene = pages[pageId].scenes.find(s => s.id === m.scene);
+            document.querySelector('.scene-description').textContent = scene.description;
+          }
+        }
+      }
       document.querySelectorAll('[data-node]').forEach(n => n.tabIndex = -1);
       parent.postMessage({ channel, type: 'shown', page: pageId, token: m.token }, '*');
     });
@@ -61,10 +89,11 @@
   }
 
   const playlist = chapters.flatMap(c => {
-    const scenes = c.id === 'index' ? [introduction, { ...overview, id: 'overview', name: '一次工作的流转' }] : pages[c.id].scenes;
+    const scenes = c.id === 'index' ? [introduction, { ...overview, id: 'overview', name: '一次工作的流转' }] : [chapterIntroductions[c.id], ...pages[c.id].scenes];
     return scenes.flatMap(s => s.steps.map((_, step) => ({ page: c.id, chapter: c.name, scene: s.id, name: s.name, step, count: s.steps.length })));
   });
   const voiceRates = [1, 1.5, 2, 3];
+  const pageSpeechLeadSeconds = 0.5;
   const rateOptions = voiceRates.map(rate => `<option value="${rate}">${rate}×</option>`).join('');
   let voiceRate = 1;
   try {
@@ -74,17 +103,17 @@
   const remember = () => { try { localStorage.setItem('cx-explainer-tour', JSON.stringify({ voiceRate })); } catch {} };
   const duration = () => {
     if (!window.CXNarration) return '待音频就绪';
-    const total = Math.ceil(window.CXNarration.audio_seconds / voiceRate + playlist.length * window.CXNarration.gap_seconds);
+    const total = Math.ceil(window.CXNarration.audio_seconds / voiceRate + playlist.length * window.CXNarration.gap_seconds + chapters.length * pageSpeechLeadSeconds);
     return `${Math.floor(total / 60)} 分${total % 60 ? ` ${total % 60} 秒` : ''}`;
   };
   document.body.insertAdjacentHTML('beforeend', `
     <dialog class="tour-settings" aria-labelledby="tour-settings-title">
       <form class="tour-settings-form">
         <div class="eyebrow">GLOBAL PRODUCT TOUR</div><h2 id="tour-settings-title">让川序，完整演示一遍。</h2>
-        <p>先认识川序，再从产品总览进入六个主题。共 97 个讲解片段，播完循环；演示在当前窗口播放，可通过底栏按钮进入全屏。</p>
+        <p>先认识川序，再从产品总览进入六个主题。每个主题先听本页导览，再看分步讲解，共 ${playlist.length} 个讲解片段，播完循环；演示在当前窗口播放，可通过底栏按钮进入全屏。</p>
         <div class="tour-voice-settings"><label for="tour-settings-rate">讲解速度</label><select id="tour-settings-rate" class="tour-rate-select" data-voice-rate>${rateOptions}</select></div>
         <div class="tour-sound-settings"><label><input type="checkbox" data-sound-enabled>播放轻柔背景音</label><label>音量 <input type="range" min="0" max="100" value="22" data-sound-volume aria-label="演示背景音量"></label></div>
-        <p class="tour-duration"></p><p class="tour-settings-note">使用预制语音播报，讲解结束后间隔 0.3 秒进入下一步。功能与实现同步展示；暂停或离开标签页时，语音与画面一起停留。按 Esc 退出。</p>
+        <p class="tour-duration"></p><p class="tour-settings-note">使用预制语音播报，页内语音间隔 0.3 秒；跨页画面照常切换，新页显示后多留 0.5 秒静音再开口。功能与实现同步展示；暂停或离开标签页时，语音与画面一起停留。按 Esc 退出。</p>
         <div class="tour-settings-actions"><button type="button" class="text-btn tour-cancel">取消</button><button type="submit" class="button">${icon('play')}开始循环演示</button></div>
       </form>
     </dialog>
@@ -109,17 +138,21 @@
   let active = false, paused = false, waiting = true, position = 0, round = 1;
   let frame, loadedPage, timer, token = 0, ownedFullscreen = false, fullscreenUnavailable = false, returnFocus;
   let voicePhase = 'off', voiceFailed = false, voiceEpoch = 0, voiceEvents, gapRemaining = 0, gapDeadline = 0;
+  let speechLeadRemaining = 0, speechLeadDeadline = 0;
   function clearClock() {
     clearTimeout(timer);
     if (gapDeadline) gapRemaining = Math.max(0, gapDeadline - performance.now());
+    if (speechLeadDeadline) speechLeadRemaining = Math.max(0, speechLeadDeadline - performance.now());
     gapDeadline = 0;
+    speechLeadDeadline = 0;
   }
   function stopVoice() {
     voiceEpoch++; voiceEvents?.abort(); voice.pause(); voice.removeAttribute('src'); voice.load();
     window.CXSound?.setNarrating(false);
   }
-  function prepareVoice() {
+  function prepareVoice(speechLead = 0) {
     clearClock(); stopVoice(); voiceFailed = false; gapRemaining = 0;
+    speechLeadRemaining = speechLead;
     voicePhase = 'loading';
     const item = playlist[position], key = `${item.page}/${item.scene}/${item.step}`;
     const entry = window.CXNarration?.entries[key];
@@ -146,7 +179,7 @@
     window.CXSound?.setNarrating(false); update();
   }
   function togglePause() {
-    if (voiceFailed) { paused = false; prepareVoice(); }
+    if (voiceFailed) { paused = false; prepareVoice(speechLeadRemaining); }
     else paused = !paused;
     update(); schedule();
   }
@@ -167,7 +200,7 @@
     player.dataset.playback = 'voice';
     player.dataset.voiceRate = String(voiceRate);
     player.querySelector('.tour-chapter').textContent = `${item.chapter} · ${item.name}`;
-    const narrationStatus = voiceFailed ? '语音加载失败，请重试或手动切步' : voicePhase === 'gap' ? '讲解间隔' : voicePhase === 'blocked' ? '点击继续，开始语音' : voicePhase === 'loading' ? '准备语音' : `语音讲解 ${voiceRate}×`;
+    const narrationStatus = voiceFailed ? '语音加载失败，请重试或手动切步' : voicePhase === 'gap' ? '讲解间隔' : voicePhase === 'lead-in' ? '语音衔接' : voicePhase === 'blocked' ? '点击继续，开始语音' : voicePhase === 'loading' ? '准备语音' : `语音讲解 ${voiceRate}×`;
     player.querySelector('.tour-status').textContent = `${position + 1} / ${playlist.length} · 第 ${round} 轮 · ${waiting ? '准备中' : voiceFailed || voicePhase === 'blocked' ? narrationStatus : paused ? '已暂停' : document.hidden ? '后台暂停' : narrationStatus} · 场景 ${item.step + 1}/${item.count}${fullscreenUnavailable ? ' · 窗口演示' : ''}`;
     player.querySelector('.tour-progress').value = position + 1;
     pause.innerHTML = icon(paused ? 'play' : 'pause') + `<span>${voiceFailed ? '重试语音' : paused ? '继续' : '暂停'}</span>`;
@@ -187,7 +220,11 @@
     clearClock();
     if (!active || paused || waiting || document.hidden) { voice.pause(); window.CXSound?.setNarrating(false); return; }
     if (!voiceFailed) {
-      if (voicePhase === 'gap') {
+      if (speechLeadRemaining > 0) {
+        voicePhase = 'lead-in'; speechLeadDeadline = performance.now() + speechLeadRemaining;
+        timer = setTimeout(() => { speechLeadDeadline = 0; speechLeadRemaining = 0; voicePhase = 'loading'; update(); schedule(); }, speechLeadRemaining);
+        update();
+      } else if (voicePhase === 'gap') {
         gapDeadline = performance.now() + gapRemaining;
         timer = setTimeout(() => { gapDeadline = 0; advance(1); }, gapRemaining);
       } else playVoice();
@@ -209,10 +246,12 @@
   }
   function advance(delta) {
     if (!active) return;
+    const previousPage = playlist[position].page;
     if (position === playlist.length - 1 && delta === 1) round++;
     if (position === 0 && delta === -1) round = Math.max(1, round - 1);
     position = (position + delta + playlist.length) % playlist.length;
-    prepareVoice();
+    // Keep the visual change on its original clock; delay speech only after the new page is shown.
+    prepareVoice(playlist[position].page !== previousPage ? pageSpeechLeadSeconds * 1000 : 0);
     send();
   }
   function requestFullscreen() {

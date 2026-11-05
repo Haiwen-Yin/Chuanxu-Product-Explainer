@@ -3,10 +3,10 @@ window.CXNarration = {
   "schema": "chuanxu-prerecorded-narration/v1",
   "language": "zh-CN",
   "voice": "zh-CN-XiaoxiaoNeural",
-  "generated_at": "2026-11-05T02:29:14.994453+00:00",
+  "generated_at": "2026-11-05T04:10:05.963963+00:00",
   "gap_seconds": 0.3,
-  "script_sha256": "2205562bc2ad4b9964f5372c3cdfa5378660586c6a3c87fd1b0e6b9bd8b377a8",
-  "content_file_sha256": "39c643c7f93baf7c925440c28c9e1e1079c229b604cba6d484e8e8f4e1e30cea",
+  "script_sha256": "e6d150e5a6e7f07614c82f872cfb6d1a5c71c787c7f82dee34836322db94bc1f",
+  "content_file_sha256": "ad652cbbc969f52fa1cd2472f917fcf533b2de3b1e9f6bdaeafa28de8fc907b8",
   "entries": {
     "index/introduction/0": {
       "text": "川序是以数据库为权威状态源的企业智能体基础设施。它连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。接下来，我们从一次工作的流转，了解川序如何运行。",
@@ -56,6 +56,13 @@ window.CXNarration = {
       "duration": 8.832,
       "sha256": "e06c9e67917da91ae595b14097e54087c309125c07da3baacfdcb04c2f3c4b42",
       "content_sha256": "6ef2d24e6a2f51908c561c48e392801569876796371138b90b32be41cb411718"
+    },
+    "knowledge/chapter-introduction/0": {
+      "text": "接下来是知识与记忆。这一页介绍资料如何成为有来源、可授权的工作依据。我们会依次看授权检索、知识入库，以及记忆与上下文。",
+      "src": "assets/narration/knowledge-chapter-introduction-01.mp3",
+      "duration": 13.824,
+      "sha256": "63787a5886264390ef0dd0afc2d8f0f02fd5946869de88c16d764d1f0e3ad4c8",
+      "content_sha256": "42b3c5cd0427a7e6282ff0857577551387e6fc90414736e7d92910386e0e7f18"
     },
     "knowledge/retrieval/0": {
       "text": "先看知识检索。面对部署问题，先明确产品、版本和适用时间，避免用旧说明回答新问题。",
@@ -183,6 +190,13 @@ window.CXNarration = {
       "sha256": "cb6e86bd92dd0a65cd5b0eedad9cbbe4bd2fde198d9a66d16eef8b869b7c02d5",
       "content_sha256": "e2b9c7b55c09a5136a4b634cf0fcfed886682c3c56052d869aec93ee08ac49b1"
     },
+    "collaboration/chapter-introduction/0": {
+      "text": "接下来是协作与执行。这一页介绍目标如何拆成任务，以及不同智能体如何交接责任、接续工作。我们会依次看责任交接、执行图与循环，以及共享上下文协作。",
+      "src": "assets/narration/collaboration-chapter-introduction-01.mp3",
+      "duration": 16.848,
+      "sha256": "cba486b0e581b50ddca0cbc78774e39cf0027c852cdc12a8ffb4d9e2751c7c92",
+      "content_sha256": "2be188ef12eb492c202c9ff12d4e42205ffff9f69349ca4a60ce0b9aff7d3111"
+    },
     "collaboration/handoff/0": {
       "text": "协作从明确工作开始。工作对象记录目标、责任和验收条件，具体任务承载执行步骤。",
       "src": "assets/narration/collaboration-handoff-01.mp3",
@@ -308,6 +322,13 @@ window.CXNarration = {
       "duration": 9.552,
       "sha256": "f65c973a1ead6a9156995f48e2cee7c4ea86bb0600f683044503cbeb447859dc",
       "content_sha256": "3da62ef8b52b1c294c3b01680f8862801a826eda1c21fa303e771ad80946eb47"
+    },
+    "governance/chapter-introduction/0": {
+      "text": "接下来是身份与治理。这一页介绍谁能读取资料、谁能执行动作，以及授权变化后如何持续检查。我们会依次看双主体授权、身份与撤销，以及治理与审计。",
+      "src": "assets/narration/governance-chapter-introduction-01.mp3",
+      "duration": 16.584,
+      "sha256": "0fb4bd46421abf8608bc48fda6ae5564a8d7ec2a68679dcdcea8a948b9829e59",
+      "content_sha256": "91cb1b3a5a0f316f0d5b88e5286f5dbbdca25086802acff21a0b31dc0363a3c0"
     },
     "governance/intersection/0": {
       "text": "权限治理先确认谁在发起。人的会话、组织和角色，共同参与当前权限计算。",
@@ -435,6 +456,13 @@ window.CXNarration = {
       "sha256": "47dd8f8c2d68cb6e75ce0796873cf330da4d8840c28d6a04b7c54790ab9cf65e",
       "content_sha256": "5446411c59badd216d58b99b5fec449796f6cce80398f5f6e456dee9615662af"
     },
+    "runtime/chapter-introduction/0": {
+      "text": "接下来是模型与运行。这一页介绍一次模型请求如何被核验、执行和跟踪。我们会先看请求的完整生命周期，再看超时或结果未知时如何核对与恢复。",
+      "src": "assets/narration/runtime-chapter-introduction-01.mp3",
+      "duration": 15.96,
+      "sha256": "9127c82bf5bf6fb53f1920cfe25884aa36c98ef88f44484efd086d1dbb041612",
+      "content_sha256": "cb72067518759b66183b0a8cf0824c611f7393169ac362b9d5dc7b0faf3c9b7d"
+    },
     "runtime/request/0": {
       "text": "模型调用从经过核验的配置开始。流式、结构化和工具能力，要依据实际探测，不能只看模型名称。",
       "src": "assets/narration/runtime-request-01.mp3",
@@ -519,6 +547,13 @@ window.CXNarration = {
       "sha256": "e47a1ca79143b2d15425bfb04eb08f93e2dbc7230d4510a214e15c2c87b1d7ef",
       "content_sha256": "0764b34f710c8b7183537ca7d5fa4ed26095c5461e62be0bd7476c4125e092e9"
     },
+    "integrations/chapter-introduction/0": {
+      "text": "接下来是能力与接入。这一页介绍川序如何按契约连接工具、技能和外部智能体。我们会先看技能与工具的受控调用，再看协议与网关的版本化接入。",
+      "src": "assets/narration/integrations-chapter-introduction-01.mp3",
+      "duration": 15.288,
+      "sha256": "e76b81036b9ceaa731527a97d12fa0ebd780d5bb814ae2cee2264f190f24636a",
+      "content_sha256": "51cbb053eadbe35b9f4d84452d7f2ad2bbae055b445d508e8fb6d4b59c47e9fd"
+    },
     "integrations/tool/0": {
       "text": "使用工具时，先发现任务所需的能力目录。看见能力，不代表已经获准调用。",
       "src": "assets/narration/integrations-tool-01.mp3",
@@ -602,6 +637,13 @@ window.CXNarration = {
       "duration": 10.416,
       "sha256": "390cac8f865c4150b33279b0fbe12ffcd37d9915c85ef737630c89e8edf12850",
       "content_sha256": "f80923442100e4759f07cc7bf698b82273331f0acfd2ddf736f457f462c58178"
+    },
+    "architecture/chapter-introduction/0": {
+      "text": "最后是数据库底座。这一页介绍身份、知识、任务和审计如何落到数据库中的权威状态。我们会先看整体架构，再看安装与升级，并说明不同数据库的实现边界。",
+      "src": "assets/narration/architecture-chapter-introduction-01.mp3",
+      "duration": 16.56,
+      "sha256": "87e8491d2cc6a088ec17a88b78fb38aaababe79d598157e04236b3ecee163efb",
+      "content_sha256": "cf6d4d21ca6645b1c79f694620cac66ee9707efef418e4e3a0a5fae24aea6a35"
     },
     "architecture/layers/0": {
       "text": "最后看整体架构。管理界面、使用入口和协议接口面向不同角色，共同复用服务端业务规则。",
@@ -688,5 +730,5 @@ window.CXNarration = {
       "content_sha256": "c60e248dccc507e03f737d230528ad8e3a40b44c18531495f6be84ba3caee689"
     }
   },
-  "audio_seconds": 936.888
+  "audio_seconds": 1031.952
 };

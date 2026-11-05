@@ -203,5 +203,11 @@
       technical: '连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。',
       active: [], event: 'WELCOME TO CHUANXU' }],
   };
-  window.CX = { chapters, pages, overview, introduction, version: '5.0.3' };
+  const chapterIntroductions = Object.fromEntries(chapters.slice(1).map(chapter => [chapter.id, {
+    id: 'chapter-introduction', name: '本页导览',
+    steps: [{ title: chapter.name, business: pages[chapter.id].intro,
+      technical: `依次介绍：${pages[chapter.id].scenes.map(scene => scene.name).join('、')}。`,
+      active: [], event: 'CHAPTER INTRODUCTION' }],
+  }]));
+  window.CX = { chapters, pages, overview, introduction, chapterIntroductions, version: '5.0.3' };
 })();
