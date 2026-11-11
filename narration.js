@@ -1,13 +1,13 @@
 /* Prerecorded voice clips; no speech service is called during playback. */
 window.CXNarration = {
   "schema": "chuanxu-prerecorded-narration/v1",
-  "product_version": "5.0.4",
+  "product_version": "5.0.5",
   "language": "zh-CN",
   "voice": "zh-CN-XiaoxiaoNeural",
-  "generated_at": "2026-11-05T14:04:29.146568+00:00",
+  "generated_at": "2026-11-10T15:52:00.033148+00:00",
   "gap_seconds": 0.3,
-  "script_sha256": "944ca01a81b3c15b41c720b4de38aec155738cd7dcde8608c09f07f7a1f143c9",
-  "content_file_sha256": "0fb515ce67a6ffc4e86f678d45a4a0a715c463c0ba656ecb8931729f2a47294a",
+  "script_sha256": "27c17fdf183f39616aabed31685d66234940c2dd72bdf341756d9daed4f431ee",
+  "content_file_sha256": "e01050fb792a817e8e3467892bd79a054f6f875a3e9330d3e5b6f4fac074585d",
   "entries": {
     "index/introduction/0": {
       "text": "川序是以数据库为权威状态源的企业智能体基础设施。它连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。接下来，我们从一次工作的流转，了解川序如何运行。",
@@ -59,11 +59,11 @@ window.CXNarration = {
       "content_sha256": "6ef2d24e6a2f51908c561c48e392801569876796371138b90b32be41cb411718"
     },
     "knowledge/chapter-introduction/0": {
-      "text": "接下来是知识与记忆。我们会先看授权检索、知识入库和时态记忆，再看本版的官方事件采集、故障复盘草稿与上下文依据。所有环节都保留来源与权限，采集和报告生成不会自动发布知识。",
+      "text": "接下来是知识与记忆。先看授权检索、回答表达与页面资产入口，再看知识入库、时态记忆、官方事件和复盘草稿。来源、版本、时间与权限始终保留；引用有效仍不等于每个结论都正确。",
       "src": "assets/narration/knowledge-chapter-introduction-01.mp3",
-      "duration": 20.064,
-      "sha256": "6d12908805e444d3623c9d1d9dc65f9d4e6d587493fb398f0ad64cb28c5fa015",
-      "content_sha256": "9f3cb76c17187bc05d906c753cb047fe80260f6153958f96c7574329bc15b56e"
+      "duration": 20.52,
+      "sha256": "71bcacf93ac507cc6d5386549c742447142f1687fdd7d1e80587473f60c7a7c6",
+      "content_sha256": "3fc105c6c16a15b8d87b5a04455dcb446b8b01c9e3af4e7026df8234e5ebcaa1"
     },
     "knowledge/retrieval/0": {
       "text": "先看知识检索。面对部署问题，先明确产品、版本和适用时间，避免用旧说明回答新问题。",
@@ -106,6 +106,90 @@ window.CXNarration = {
       "duration": 10.056,
       "sha256": "225860e98774b78691380bd990344233da9dcced54b58768a0dbe57c30c67257",
       "content_sha256": "8424594139443a42c8549af02d4858743adcf72225c9fa2327173ef33378afe2"
+    },
+    "knowledge/answer-expression/0": {
+      "text": "先明确这次用了哪些依据。川序把表达约束绑定到最终保留的授权引用窗口，沿用已有回答计划，不增加生成排序调用，也不建立另一份权威知识。",
+      "src": "assets/narration/knowledge-answer-expression-01.mp3",
+      "duration": 14.664,
+      "sha256": "22fcad8084b82bee3cafd41eaa736ff29fdc6f6d772f2f3b8323e71713a1d280",
+      "content_sha256": "cddfdb5230a2846a4833d33dd5527241e99eb05ea46064dadd017219b045b5b2"
+    },
+    "knowledge/answer-expression/1": {
+      "text": "原文、计算和建议，要分别说清。来源陈述、本地整理、条件推断和待确认建议有不同含义。提示约束不能保证模型理解正确，建议也不会因此变成批准或已执行动作。",
+      "src": "assets/narration/knowledge-answer-expression-02.mp3",
+      "duration": 18.12,
+      "sha256": "ce77f9244369c7e6109f79bfed54ddec67561c3c33a395f1995b3f95a373b29e",
+      "content_sha256": "f14134931911205fb7d414c5499a4ffaf8242ea13d88c3b0eda2a30748530ba8"
+    },
+    "knowledge/answer-expression/2": {
+      "text": "没有依据的细节，继续保持未知。未知不补成零，未报告不说成没有。事件、采集和适用时间各自保留含义，入库较晚也不代表事实较新。",
+      "src": "assets/narration/knowledge-answer-expression-03.mp3",
+      "duration": 14.592,
+      "sha256": "d24a66455138e5b726ee0b1d09561bfe1dcce49a7735ff10141a76dcc8c09044",
+      "content_sha256": "625b693eec5cd3e11580cfae8d0cddb0cae0ab36a88377065d8bd29b0cd262dc"
+    },
+    "knowledge/answer-expression/3": {
+      "text": "用具体证据和缺口说明把握，不给回答虚构正确概率。检索排序、引用数量和模型自评分都不能提供校准依据。来源中的统计数值，仍然只说明它原本的对象。",
+      "src": "assets/narration/knowledge-answer-expression-04.mp3",
+      "duration": 16.656,
+      "sha256": "35fd9bd15f1748241ac24dca7f16dddbd2f89784ecbc3f00ebfdfa1f56fa137f",
+      "content_sha256": "dee77a64a9c72feef02c397653b89cf1d466a8c33cbc96c89c166c2153b02865"
+    },
+    "knowledge/answer-expression/4": {
+      "text": "先接收完整回答，再作有限检查。发现部分明确的无依据数字自信度声明时，暂缓展示这次回答。带表达约束的频道回答在终态检查后发布，不自动重采掩盖失败。",
+      "src": "assets/narration/knowledge-answer-expression-05.mp3",
+      "duration": 17.256,
+      "sha256": "9b86569ae44621eff7c835f08286847ecd18c345f78ec378e2fe8d188f213ea3",
+      "content_sha256": "593f4bd98e6e8b88ad14c1be72836b439cbdfe143d363a91cff9e1d08e0af653"
+    },
+    "knowledge/answer-expression/5": {
+      "text": "重要结论，仍要回到原文。规则没有命中，不等于事实正确；引用有效，也不证明每句话都有支持。复杂遗漏和推断需要复核，读取原文时继续检查当前权限。",
+      "src": "assets/narration/knowledge-answer-expression-06.mp3",
+      "duration": 16.536,
+      "sha256": "44d27394e7bac7276d2ea33a8edcb1041f686dce9cb2d8100753a20106e7d271",
+      "content_sha256": "0071c82b995f4a987b3e03e5dd3b5cc42f88f3d821258d63f8eddb560a7dd4e7"
+    },
+    "knowledge/asset-navigation/0": {
+      "text": "打开页面，先读取当前可见内容。知识列表和记忆概览独立加载，进入其他页签时再读取相应数据。加载、失败和重试分别反馈，图预览的显示数量不冒充全库总数。",
+      "src": "assets/narration/knowledge-asset-navigation-01.mp3",
+      "duration": 17.88,
+      "sha256": "cfa5313f4d340108e6a168f1e67a3fd31d1095a1a05aa102cb83b257063781a9",
+      "content_sha256": "7b3b60ccf1e5c949e32bccb71233324c0cca59bab8491babfa6495597eb2df52"
+    },
+    "knowledge/asset-navigation/1": {
+      "text": "在工作区，可以找到智能体资产与来源入口。先明确选择本次工作的安全域。没有选择时给出提示，不能因为只有一个域，就默认代选或扩大访问权限。",
+      "src": "assets/narration/knowledge-asset-navigation-02.mp3",
+      "duration": 15.72,
+      "sha256": "811eb5082d67d0b2973d7a3a30fb500de8dccfdcc0706c7573098db56c290d1c",
+      "content_sha256": "fed5c82158d15022a6323cfd58197bc09d62d784226791b44b4ffb7882eb4df5"
+    },
+    "knowledge/asset-navigation/2": {
+      "text": "接下来，选择当前有权操作的智能体。切换后查看它的资产，授权范围内的选择可以通过链接恢复。链接只保存界面状态，服务端仍然核对域、智能体和来源权限。",
+      "src": "assets/narration/knowledge-asset-navigation-03.mp3",
+      "duration": 17.256,
+      "sha256": "6e19472bfedac4d17ec26ba8690f63b87700f20cca1516eb3c4d2c43db74b6aa",
+      "content_sha256": "60faef22343eaa86829c400e7d7fc3355d4c4fe8cfa1b61515e3bf76cc0983ad"
+    },
+    "knowledge/asset-navigation/3": {
+      "text": "来源、绑定和推荐，分别管理。这里可以查看精确资产绑定、只读来源同步和技能推荐。推荐不代表执行，同步和导入也不会自动把内容发布为知识。",
+      "src": "assets/narration/knowledge-asset-navigation-04.mp3",
+      "duration": 15.696,
+      "sha256": "9c40e2b9da782b5820ae4fbdfcacb8d052ff895d351b17afc9beb7371373e310",
+      "content_sha256": "7abcaeecfde1bd3e0672db63241bc7e9897fef995db99ca2880a3b6bdeb39cdb"
+    },
+    "knowledge/asset-navigation/4": {
+      "text": "Portal 回答策略按回答控制、模型披露和组织覆盖分组。保存时继续核对版本，发生冲突就明确反馈。布局变化不会改变披露授权、组织范围或审核要求。",
+      "src": "assets/narration/knowledge-asset-navigation-05.mp3",
+      "duration": 16.896,
+      "sha256": "0680f821177b15d381ec50ec43b966f881ceb31f2a340f205b8b07214dd152c8",
+      "content_sha256": "7314f5a41cb5237f199f7306fc1748b6a46f0de50c853b69dbbd6e2cf0a50d5a"
+    },
+    "knowledge/asset-navigation/5": {
+      "text": "普通 HTTP 下也保持受控交互。缺少原生 UUID 接口时使用安全随机源，重试保留同一幂等标识。随机源缺失时受控报错，内容摘要有兼容路径；这些改进不为 HTTP 增加传输加密。",
+      "src": "assets/narration/knowledge-asset-navigation-06.mp3",
+      "duration": 20.544,
+      "sha256": "c97bdf285c4ea80b9430038e710941ce28fe1b32a1dccb69955cf3c9c75c094f",
+      "content_sha256": "73094ba989e327c9bee4aaedf349f2b7a28b1becd5c212f5c71a3553db573f16"
     },
     "knowledge/intake/0": {
       "text": "再看知识入库。先交代资料的用途、来源、责任人，以及适用的产品和时间。",
@@ -626,11 +710,11 @@ window.CXNarration = {
       "content_sha256": "10cd6a717c4bd848e3e72810da3c82ac178d6584c328a18e4c5e6aed0b7023cf"
     },
     "runtime/request/5": {
-      "text": "只记录实际观察到的用量，区分服务商报告和平台估算。缺失的数据和未知价格，不补造成确定数字。",
+      "text": "累计用量按快照处理，不重复相加。兼容零占位和一致的终态补充，保留已完成回答；倒退或矛盾统计仍拒绝。缺失用量和未知价格继续保持未知，平台估算不等于账单。",
       "src": "assets/narration/runtime-request-06.mp3",
-      "duration": 10.752,
-      "sha256": "3eb45cbd02991babcf15e92bcc95494f71ed2feee398356c628afeefcf6fa5a0",
-      "content_sha256": "80f1ba6525fb4abf45124686b20ad74f83df4722d1f167ae8e64196f767b5f66"
+      "duration": 18.456,
+      "sha256": "ffd6f7ac535a4e637b5c5cbb5fdf755e4feee7f485a72ddf69843ac97db7b7b1",
+      "content_sha256": "879fee0cf7d8c875dbce338f6a5d4b8a2ed555bae4f2488ba4e3115cc5bdf185"
     },
     "runtime/unknown/0": {
       "text": "请求发出后，关联具体的运行尝试和原始授权。后续恢复，从这条实际请求开始核对。",
@@ -899,5 +983,5 @@ window.CXNarration = {
       "content_sha256": "c60e248dccc507e03f737d230528ad8e3a40b44c18531495f6be84ba3caee689"
     }
   },
-  "audio_seconds": 1394.232
+  "audio_seconds": 1604.208
 };

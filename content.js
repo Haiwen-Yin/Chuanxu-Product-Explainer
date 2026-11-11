@@ -1,4 +1,4 @@
-/* Product explanations based on the Chuanxu v5.0.4 release and product guides. */
+/* Product explanations based on the Chuanxu v5.0.5 implementation and product guides. */
 (() => {
   const node = (id, title, sub, icon = 'box') => ({ id, title, sub, icon });
   const step = (title, business, technical, active, event) => ({ title, business, technical, active: active.split(' '), event });
@@ -16,7 +16,7 @@
   const pages = {
     knowledge: {
       headline: ['让知识有来源，', '让回答有依据。'],
-      intro: '从授权检索、知识入库和时态记忆，到官方事件采集、故障复盘草稿与上下文依据，把来源、版本、时间和访问范围贯穿起来。',
+      intro: '从授权检索、回答表达和时态记忆，到资产来源、官方事件与复盘草稿，把来源、版本、时间和访问范围贯穿起来。页面按当前视图加载，引用有效仍不等于每个结论都正确。',
       tags: ['授权检索与记忆', '官方事件与复盘', '上下文依据'],
       question: '一份资料，如何成为可靠的工作依据？',
       scenes: [
@@ -32,6 +32,26 @@
           step('把恰当的材料交给恰当的模型。', '只把获准披露的来源放入选定模型的上下文，保留回答所需空间。', '核对 Profile 披露授权、来源修订与上下文预算；预算不足会阻止派发。', 'model', 'CONTEXT → approved disclosure'),
           step('让每个结论，能够回到原文。', '回答区分知识依据、模型补充和推断。点击引用时仍检查当前权限。', '引用回读重新校验精确来源；历史答案不能恢复已撤销的访问权。', 'answer', 'ANSWER → source-bound citations'),
         ], { signals: ['关系属性', '向量', '全文', '标签', '图关系'] }),
+        scene('answer-expression', '回答表达与边界', '资料找对之后，仍要分清模型如何使用这些依据。', [
+          node('sources','绑定实际依据','授权 · 精确引用','book'),node('distinguish','区分结论类型','原文 · 计算 · 建议','layers'),node('unknown','保留未知与条件','时间 · 否定 · 冲突','clock'),node('confidence','说明证据与缺口','排序 ≠ 正确概率','search'),node('screen','有限规则筛查','无依据自信度 · 暂缓展示','shield'),node('cite','回读原始资料','引用有效 ≠ 逐句核验','check'),
+        ], [
+          step('先明确，这次到底用了什么。','将表达约束绑定到最终保留的授权引用窗口。','约束随既有回答计划传入模型，不增加生成排序调用，也不建立另一份权威知识。','sources','EVIDENCE → final reference window'),
+          step('原文、计算和建议，分别说清。','说明哪些是来源陈述，哪些是本地整理、条件推断或待确认建议。','提示约束区分结论类型；它不能保证模型理解正确，建议不会因此变成批准或已执行动作。','distinguish','CLAIM → meaning distinguished'),
+          step('没有依据的细节，保持未知。','未知不补成零，未报告不说成没有；保留事件、采集和适用时间的区别。','冲突、来源修订和限定条件继续随上下文传递；入库较晚不代表事实较新。','unknown','UNKNOWN → not zero or absence'),
+          step('用证据说明把握，避免虚构概率。','解释有哪些支持、还缺什么，而不是给回答标一个没有校准依据的百分比。','检索排序、引用数量和模型自评分不能推导回答正确概率。来源中的统计数值仍有自己的对象与含义。','confidence','CONFIDENCE → evidence and gaps'),
+          step('接收完整回答，再作有限检查。','发现部分明确的无依据数字自信度声明时，暂缓展示该次回答。','带表达约束的频道回答在终态检查后发布；有限规则不做逐句事实核验，也不自动重采掩盖失败。','screen','SCREEN → bounded publication rules'),
+          step('重要结论，仍要回到原文。','通过精确引用核对关键细节，并持续检查当前访问权限。','规则未命中不等于事实正确，引用有效不证明每句话受支持；复杂遗漏和推断仍需复核。','cite','REVIEW → original evidence'),
+        ]),
+        scene('asset-navigation', '页面与资产入口', '从可见内容开始，找到 Agent 真正可使用的资产与来源。', [
+          node('visible','先看当前视图','知识 · 记忆 · 图预览','search'),node('domain','进入资产与来源','工作区 · 显式安全域','shield'),node('agent','选择目标 Agent','当前授权 · 链接状态','user'),node('assets','管理精确来源','绑定 · 同步 · 推荐','layers'),node('policy','核对回答策略','回答 · 披露 · 组织覆盖','file'),node('browser','保持请求身份','安全随机 · 幂等重试','refresh'),
+        ], [
+          step('打开页面，先读取当前内容。','知识列表和记忆概览独立加载，进入图或其他页签时再读取相应数据。','各区域保留加载、失败与重试反馈；有界图预览的显示数量不是全库总数。','visible','VIEW → visible resources first'),
+          step('在工作区，找到资产与来源。','通过工作区的 Agent 资产与来源入口，明确选择本次工作的安全域。','没有安全域时提示选择，不能因为存在一个域就默认代选或扩大权限。','domain','WORKSPACE → explicit Domain'),
+          step('选择当前有权操作的 Agent。','切换 Agent 后查看相应资产，授权范围内的选择可以通过链接恢复。','链接参数只保存界面状态；服务端继续核验当前域、Agent 与来源权限。','agent','AGENT → authorized selection'),
+          step('来源、绑定与推荐，分别管理。','查看精确资产绑定、只读来源同步与 Skill 推荐，不把推荐当成执行。','现有 Source、Task 与候选版本链保持权威；同步和导入不自动发布知识。','assets','ASSETS → exact source contracts'),
+          step('把回答策略与披露范围看清楚。','Portal 策略按回答控制、模型披露和组织覆盖分组，保存仍检查版本冲突。','页面布局变化不改变披露授权、组织范围或审核要求。','policy','POLICY → versioned controls'),
+          step('普通 HTTP，也保留受控交互。','兼容缺少原生 UUID 的浏览器，操作重试仍使用同一幂等标识。','UUID 依赖安全随机源，缺失时受控报错；内容摘要有兼容路径，这不为 HTTP 增加传输加密。','browser','REQUEST → stable retry identity'),
+        ]),
         scene('intake', '知识入库', '上传、审核、成为知识与扩大共享范围，是不同的动作。', [
           node('source', '准备来源', '用途 · 责任人 · 位置', 'file'), node('preview', '分块与质量预览', '条件 · 重复 · 缺项', 'search'),
           node('candidate', '保存候选', '草稿 · 精确修订', 'layers'), node('review', '独立审核', '审核者与作者分离', 'user'),
@@ -161,7 +181,7 @@
           step('共同的资源，需要共同协调。','共享模型服务的请求由同一容量权威管理。','参与身份、地址别名和 Profile 版本注册到权威协调器；各库独立加锁不会形成全局队列。','capacity','CAPACITY → coordinated admission'),
           step('发出之前，再确认能够发。','复核来源、原凭证、请求摘要和当前执行权。','业务来源授权与中央容量授权各自验证，不互相代授私有权限。','dispatch','SEND → exact request bound'),
           step('返回了，还要看返回了什么。','完整传输、结构有效与业务验收分别判断。','拒答、截断、Schema 失败与业务语义不通过分别记录。','response','RESPONSE → contract checked'),
-          step('把真正观察到的用量记下来。','缺失数据保持不完整，未知价格保持未知。','区分 Provider 报告、平台估算与账单；未观测的外部直连流量不计作已覆盖。','usage','USAGE → observed facts only'),
+          step('把真正观察到的用量记下来。','兼容累计用量和零占位统计，保留已完成回答；未知用量与价格仍保持未知。','累计快照不重复相加，一致终态可补充统计；倒退或终态矛盾仍拒绝，平台估算不等于账单。','usage','USAGE → consistent cumulative facts'),
         ]),
         scene('unknown','未知结果与恢复','客户端超时，不代表远端已经停止。',[node('send','请求已发出','真实请求有唯一关联','send'),node('disconnect','本地连接中断','超时 / 取消 / 失联','pulse'),node('unknown','保留未知状态','UNOBSERVED','clock'),node('reconcile','核对真实完成','请求 · 进程 · Provider','search'),node('decision','批准有界恢复','精确版本 · 预算','shield'),node('continue','按实际结果继续','完成 / 补偿 / 新尝试','check')],[
           step('派发之后，要跟踪实际请求。','记录已经发送的请求与具体尝试，后续恢复从这里开始。','原凭证、执行 fence、来源和请求摘要保持绑定。','send','REQUEST → sent'),
@@ -249,5 +269,5 @@
       technical: `依次介绍：${pages[chapter.id].scenes.map(scene => scene.name).join('、')}。`,
       active: [], event: 'CHAPTER INTRODUCTION' }],
   }]));
-  window.CX = { chapters, pages, overview, introduction, chapterIntroductions, version: '5.0.4' };
+  window.CX = { chapters, pages, overview, introduction, chapterIntroductions, version: '5.0.5' };
 })();
