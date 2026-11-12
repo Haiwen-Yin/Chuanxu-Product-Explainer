@@ -16,7 +16,7 @@
   const pages = {
     knowledge: {
       headline: ['让知识有来源，', '让回答有依据。'],
-      intro: '从授权检索、回答表达和时态记忆，到资产来源、官方事件与复盘草稿，把来源、版本、时间和访问范围贯穿起来。页面按当前视图加载，引用有效仍不等于每个结论都正确。',
+      intro: '从授权检索、回答表达和独立私有记忆，到资产来源、官方事件与复盘草稿，把来源、版本、时间和访问范围贯穿起来。Agent 无须加入频道即可保存自己的记忆，知识入库另走审核链路。',
       tags: ['授权检索与记忆', '官方事件与复盘', '上下文依据'],
       question: '一份资料，如何成为可靠的工作依据？',
       scenes: [
@@ -75,6 +75,16 @@
           step('先知道有什么，再加载需要的。', 'Agent 先发现资产目录，再读取任务需要的精确版本。', '每次加载重新校验来源与权限，避免整本手册进入所有请求。', 'discover', 'DISCOVER → metadata first'),
           step('上下文要装得下，也不能漏条件。', '保留系统提示、工具协议、必要证据与输出空间。', '区分已知 tokenizer 计数与保守估算；预算不足时阻止派发。', 'context', 'BUDGET → required evidence retained'),
           step('把工作进度留下，把正式结论审清。', '便笺记录已验证事实、放弃的方法和下一步，复盘先成为候选。', '便笺受 Work、Handoff、期限与来源授权检查；中间想法不会自动发布为知识。', 'reflect', 'REFLECT → candidate, then review'),
+        ]),
+        scene('private-memory', 'Agent 私有记忆', '不加入频道，也能留下自己的工作记忆；它不会自动变成知识。', [
+          node('identity','确认当前身份','Agent · 实例 · 安全域','user'),node('grant','核对自有权限','OWNED · read / write','shield'),node('write','写入正式记忆','独立 Memory 接口','book'),node('retry','安全重试','幂等键 · 内容一致','refresh'),node('owner','负责人查看','当前归属 · 当前授权','search'),node('boundary','共享另行处理','候选 · 审核 · 晋升','lock'),
+        ], [
+          step('记忆从当前 Agent 身份开始。','外部 Agent 完成注册和激活后，可以在自己的安全域保存私有工作记忆，无须先加入频道。','网关绑定认证 Agent、实例和安全域；凭据、令牌 scope 与当前权限分别校验。','identity','IDENTITY → no Channel prerequisite'),
+          step('有身份，还要有自有记忆权限。','新注册 Agent 获得自有范围的记忆读写授权；权限被拒绝后不能继续读写。','OWNED 范围的 memory.read / memory.write 不复制 Human 角色，也不授予知识发布或跨 Agent 访问权。','grant','GRANT → OWNED memory only'),
+          step('用记忆入口，保存到记忆。','工作观察进入正式记忆家族与版本，不混入知识列表。','POST /api/gateway/memory 返回 family_id；GET /api/gateway/memory/{family_id} 从 memory.current.content 回读。知识接口仍创建知识。','write','MEMORY → family and revision'),
+          step('同一条写入，重试不重复创建。','网络重试沿用同一幂等键；内容变化后使用新的键。','幂等键为必填；相同键与内容复用结果，同键不同内容返回 409。业务拒绝、不可见与服务失败分别返回 403、404、503。','retry','RETRY → same intent, same result'),
+          step('负责人可查，归属变化即重判。','当前有效 Human 主负责人具备记忆读取和安全域权限时，可在 Dashboard 记忆页查看。','仅 Sponsor 或同组织关系不授予私有读取权；负责人转移后按当前关系重新判定，历史归属不延续权限。','owner','OWNER → current relationship checked'),
+          step('私有保存，不等于共享发布。','想把工作记忆转为频道共享或正式知识，仍要走相应候选、审核与显式晋升流程。','独立记忆接口不绕过来源、修订和当前授权，也不自动扩大组织、安全域或受众范围。','boundary','SHARE → separate governed workflow'),
         ]),
         scene('official-incidents', '官方事件采集', '用官方公开状态页，保留可以核对的事件来源。', [
           node('feed','选择官方来源','GitHub · Cloudflare','plug'),node('fetch','有界采集','HTTP · 大小 · 时间','search'),node('raw','保留原始快照','原文 · 摘要 · 修订','file'),node('replay','识别重放与更新','幂等 · 后继版本','refresh'),node('candidate','接入现有流程','Source · Task · 候选','layers'),node('access','持续检查授权','读取 · 引用 · 撤权','shield'),
@@ -142,7 +152,7 @@
       cards: [card('list','Task 与 Step','把工作拆成可追踪的步骤，每次尝试有稳定关联。','持久状态、attempt、租约、fencing 与幂等标识。'),card('nodes','Graph 与 Loop','表达并行、依赖、屏障和有界迭代。','运行绑定已发布计划，预算不会因重启或分叉归零。'),card('send','Work 与 Handoff','将目标、责任、上下文和回执一起交接。','提议、接受、开始、结果和业务验收分开记录。'),card('message','Channel 与 Workspace','让沟通、工作分支与上下文关联起来。','频道成员关系不扩大知识或数据库访问权。')],
     },
     governance: {
-      headline: ['每一次行动，', '都有自己的边界。'], intro: '人、Agent 和资源各有身份与授权。把组织、安全域、会话和原生数据库控制结合起来，让协作发生在明确范围内。', tags: ['双主体授权', '原生身份', '可追溯审计'], question: '同一个问题，为什么不同身份看到的不同？',
+      headline: ['每一次行动，', '都有自己的边界。'], intro: '人、Agent 和资源各有身份与授权。通过统一弹窗查看并调整 Agent 业务权限，把当前负责人、可管理范围、变更版本和审计一起核对。', tags: ['双主体授权', '业务权限弹窗', '可追溯审计'], question: '同一个问题，为什么不同身份看到的不同？',
       scenes: [
         scene('intersection','双主体授权','一次知识辅助工作，需要同时满足发起人和执行 Agent 的当前权限。',[node('human','发起 Human','身份 · 会话 · 当前角色','user'),node('agent','执行 Agent','责任人 · 实例 · 凭证','box'),node('intersection','计算授权交集','Human ∩ Agent','shield'),node('resource','核对资源范围','安全域 · 生命周期','layers'),node('disclose','核对披露对象','模型 Profile · 用途','spark'),node('allow','允许本次动作','读取与执行分别检查','check')],[
           step('先确认，是谁在发起。','人用户通过受控身份与会话进入，组织和角色参与当前权限计算。','MFA、会话作用域、CSRF 与来源 IP 控制各司其职。','human','HUMAN → authenticated principal'),
@@ -159,6 +169,16 @@
           step('给实例颁发有范围的短期凭证。','凭证关联实际实例，限定作用域与有效期。','令牌作用域不代替资源权限；服务端保留凭证绑定。','credential','TOKEN → instance-bound scope'),
           step('真正执行前，再检查一次。','从排队到派发期间发生的撤权必须生效。','Worker 复核原凭证、当前来源、实例与租约。','operation','DISPATCH → authority rechecked'),
           step('撤销旧授权，不能换令牌接着发。','停止未获准的后续动作，保留已发生事实。','新凭证不能为旧请求补造授权；未知请求不盲目重发。','revoke','REVOKE → future action denied'),
+        ]),
+        scene('business-permissions','业务权限弹窗','给 Agent 调整有限的业务权限，保存结果与失败反馈留在同一窗口。',[
+          node('open','打开业务权限','智能体 · 已注册智能体','user'),node('inspect','核对实际权限','角色 · 直接授权 · 范围','search'),node('scope','限定可管理项','负责人 / 权限管理员','shield'),node('change','选择变更并说明','授权 · 拒绝 · 恢复角色','file'),node('save','按当前版本保存','冲突 · 重试 · 审计','check'),node('close','回到原来位置','Esc · 焦点返回 · 窄屏','refresh'),
+        ],[
+          step('从目标 Agent，打开业务权限。','在 Dashboard 智能体的已注册列表中，点击该行的业务权限，打开居中弹窗。','弹窗复用统一表格、表单和间距；背景暂停交互，不跳转到另一套页面。','open','DIALOG → selected Agent'),
+          step('先看实际权限，再决定修改。','同时查看生效权限、数据范围和直接授权记录，区分角色提供的权限与单独设置。','显示服务端当前权限与版本；前端可见按钮不代替后端授权检查。','inspect','INSPECT → effective permission and scope'),
+          step('负责人和管理员，能力各有边界。','有智能体管理权的当前负责人可管理自有记忆权限；有用户权限管理能力的管理员还能管理可见 Agent 的知识权限。','只允许规定的记忆、知识权限与范围，不提供任意角色或数据库管理员提权入口。','scope','SCOPE → bounded manager authority'),
+          step('说明原因，明确这次要改什么。','选择授权、拒绝或恢复角色权限，并填写变更原因。','原因输入、选择项和保存按钮保持等高对齐，窄屏自动换行；恢复角色权限会移除对应直接覆盖。','change','CHANGE → reason and explicit operation'),
+          step('按当前版本保存，冲突先刷新。','保存成功或失败直接显示在弹窗内，加载失败可重试；版本冲突时先读取最新状态再决定。','提交绑定权限版本并记录审计，旧版本不能覆盖新决定；重试不绕过当前负责人和范围检查。','save','SAVE → version checked and audited'),
+          step('完成操作，回到原来的位置。','关闭后返回触发按钮，键盘可用 Esc 退出；Tab 在窗口内循环，手机上也可阅读和操作。','焦点、背景滚动和可访问名称由共享弹窗行为约束；布局检查覆盖中英文与明暗主题。','close','RETURN → focus restored'),
         ]),
         scene('audit','治理与审计','从一次业务动作，看到公共审计与企业治理各自的职责。',[node('action','业务动作','当前身份 · 目标资源','send'),node('policy','策略与批准','通用控制 / 企业治理','shield'),node('execute','受控执行','来源 · 版本 · 当前权','nodes'),node('audit','关联审计记录','动作 · 决定 · 结果','file'),node('enterprise','企业治理视图','职责分离 · 保留策略','layers'),node('review','查验与受限导出','授权范围内的证据','search')],[
           step('动作从明确的主体开始。','分清谁提出、谁批准、谁实际执行。','Human、Agent 与数据库 Owner 不互相代授权限。','action','ACTION → principal & resource'),

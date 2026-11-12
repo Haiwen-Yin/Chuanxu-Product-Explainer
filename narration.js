@@ -4,10 +4,10 @@ window.CXNarration = {
   "product_version": "5.0.5",
   "language": "zh-CN",
   "voice": "zh-CN-XiaoxiaoNeural",
-  "generated_at": "2026-11-10T15:52:00.033148+00:00",
+  "generated_at": "2026-11-12T12:35:46.194485+00:00",
   "gap_seconds": 0.3,
-  "script_sha256": "27c17fdf183f39616aabed31685d66234940c2dd72bdf341756d9daed4f431ee",
-  "content_file_sha256": "e01050fb792a817e8e3467892bd79a054f6f875a3e9330d3e5b6f4fac074585d",
+  "script_sha256": "4514edc317bba45043c0338f861c42c13892b3f3ba2c326555f42658fbbd3cfe",
+  "content_file_sha256": "2642b6f571685b742344ba24124daab73a1d18df85b40089798de3661963601c",
   "entries": {
     "index/introduction/0": {
       "text": "川序是以数据库为权威状态源的企业智能体基础设施。它连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。接下来，我们从一次工作的流转，了解川序如何运行。",
@@ -59,11 +59,11 @@ window.CXNarration = {
       "content_sha256": "6ef2d24e6a2f51908c561c48e392801569876796371138b90b32be41cb411718"
     },
     "knowledge/chapter-introduction/0": {
-      "text": "接下来是知识与记忆。先看授权检索、回答表达与页面资产入口，再看知识入库、时态记忆、官方事件和复盘草稿。来源、版本、时间与权限始终保留；引用有效仍不等于每个结论都正确。",
+      "text": "接下来是知识与记忆。先看授权检索、回答表达与资产入口，再看知识入库、时态记忆和无需频道的 Agent 私有记忆，最后了解官方事件与复盘草稿。记忆和知识分别管理，来源、版本与权限始终保留。",
       "src": "assets/narration/knowledge-chapter-introduction-01.mp3",
-      "duration": 20.52,
-      "sha256": "71bcacf93ac507cc6d5386549c742447142f1687fdd7d1e80587473f60c7a7c6",
-      "content_sha256": "3fc105c6c16a15b8d87b5a04455dcb446b8b01c9e3af4e7026df8234e5ebcaa1"
+      "duration": 21.552,
+      "sha256": "831b021128bc4d061dedd168b2830860df20a4aef04ad85c2ec44cd8aa72c60c",
+      "content_sha256": "3cd8803e3758d00cca37682424398b7cf97f691438398e2e410a544931fc1095"
     },
     "knowledge/retrieval/0": {
       "text": "先看知识检索。面对部署问题，先明确产品、版本和适用时间，避免用旧说明回答新问题。",
@@ -274,6 +274,48 @@ window.CXNarration = {
       "duration": 10.632,
       "sha256": "cb6e86bd92dd0a65cd5b0eedad9cbbe4bd2fde198d9a66d16eef8b869b7c02d5",
       "content_sha256": "e2b9c7b55c09a5136a4b634cf0fcfed886682c3c56052d869aec93ee08ac49b1"
+    },
+    "knowledge/private-memory/0": {
+      "text": "Agent 不加入频道，也能保存自己的私有工作记忆。前提是完成注册与激活，并使用当前有效的实例、凭据和安全域。频道成员关系不是这条记忆接口的前置条件。",
+      "src": "assets/narration/knowledge-private-memory-01.mp3",
+      "duration": 16.728,
+      "sha256": "b84b962c9e3adc03968f579894fcb20ca790046947aacffd9759b97d3f574a07",
+      "content_sha256": "c263d9b7fc8bd8e50651b2c1a9703c09373ff6812ed347ffb34360adb76eec11"
+    },
+    "knowledge/private-memory/1": {
+      "text": "新注册 Agent 获得自有范围的记忆读取和写入权限。它不会继承负责人的全部角色，也不能据此读取其他 Agent 的内容。权限被拒绝后，后续读写就要停止。",
+      "src": "assets/narration/knowledge-private-memory-02.mp3",
+      "duration": 15.936,
+      "sha256": "cf63e0d6141793f76ae7875c26f37af2570a4308bc01a3f4a34613b03926cb3c",
+      "content_sha256": "2f46729002e9a83a02ef4494a30cf4b72ae718e29a0fb9673fefab68ca12fcfa"
+    },
+    "knowledge/private-memory/2": {
+      "text": "记忆要通过独立的 Memory 接口写入，保存在正式记忆家族和版本中。写入后保存家族标识，再从记忆接口读取当前内容。知识接口仍然创建知识，不能混用。",
+      "src": "assets/narration/knowledge-private-memory-03.mp3",
+      "duration": 16.44,
+      "sha256": "c5c077815c310fe19819e95c3808edf5ec47995db0c942761ae7fe3c84d568c6",
+      "content_sha256": "37641e9202783a70e0f7aadc286bf3431a43a6f4534a021de98ac70829cccca3"
+    },
+    "knowledge/private-memory/3": {
+      "text": "同一逻辑写入重试时，沿用同一幂等键。内容相同就复用已有结果；同键不同内容返回冲突。业务拒绝、记录不可见和服务失败分别处理，不能都解释成权限不够。",
+      "src": "assets/narration/knowledge-private-memory-04.mp3",
+      "duration": 16.728,
+      "sha256": "bfc3d65e5c97835004fd93015268ab06802e06b6ace409f10bf2af69d3f9dbe3",
+      "content_sha256": "a256f6fda4a1c3ac79d518302b99f8c206d36eb815b77696f285bc851e8c4be0"
+    },
+    "knowledge/private-memory/4": {
+      "text": "当前有效的 Human 主负责人，具备记忆读取和安全域权限时，可以在 Dashboard 记忆页查看。负责人发生转移就重新判定；仅是 Sponsor 或同组织成员，不会获得私有读取权。",
+      "src": "assets/narration/knowledge-private-memory-05.mp3",
+      "duration": 16.752,
+      "sha256": "b7f0918ac09cf19dc8ef168e423841539943f29937e5f28e4bd25d086b409f7f",
+      "content_sha256": "71e1e0c58b12455d26b3f17c26ce8b882d76d437d75b36cd3f55d5d68e06bd62"
+    },
+    "knowledge/private-memory/5": {
+      "text": "私有记忆保存成功，不代表它已经共享或成为知识。频道共享和知识晋升继续沿用候选、审核及明确发布流程。独立记忆入口不会自动扩大组织、安全域和受众范围。",
+      "src": "assets/narration/knowledge-private-memory-06.mp3",
+      "duration": 17.664,
+      "sha256": "c6b0ad6a5592b83753841a11491770c58275675d6ce21f79dbaf9d28e06ef893",
+      "content_sha256": "d512ab9367ad32c89de1c1d1debda52b4104fd631a8a48056314f24d996d87a5"
     },
     "knowledge/official-incidents/0": {
       "text": "从官方状态页开始。川序可以采集 GitHub 和 Cloudflare 的官方事件接口，保留出处和事件标识。公开事件能说明供应商状态，但不能直接证明企业内部受到了什么影响。",
@@ -535,11 +577,11 @@ window.CXNarration = {
       "content_sha256": "3da62ef8b52b1c294c3b01680f8862801a826eda1c21fa303e771ad80946eb47"
     },
     "governance/chapter-introduction/0": {
-      "text": "接下来是身份与治理。这一页介绍谁能读取资料、谁能执行动作，以及授权变化后如何持续检查。我们会依次看双主体授权、身份与撤销，以及治理与审计。",
+      "text": "接下来是身份与治理。这一页介绍双主体授权、外部 Agent 身份、业务权限弹窗和治理审计。先看谁可以读取和执行，再看负责人如何在限定范围内调整权限。每次变更都保留当前授权、版本和审计边界。",
       "src": "assets/narration/governance-chapter-introduction-01.mp3",
-      "duration": 16.584,
-      "sha256": "0fb4bd46421abf8608bc48fda6ae5564a8d7ec2a68679dcdcea8a948b9829e59",
-      "content_sha256": "91cb1b3a5a0f316f0d5b88e5286f5dbbdca25086802acff21a0b31dc0363a3c0"
+      "duration": 22.32,
+      "sha256": "0164f38cf7a1835513c7bfdd8654c1e559cb4ac6ccd89254dc70d010166389fa",
+      "content_sha256": "d4d5bee38bf1fab67d5ac9d1d35586b28c1cb51c9af7a8c5f522497414b92abf"
     },
     "governance/intersection/0": {
       "text": "权限治理先确认谁在发起。人的会话、组织和角色，共同参与当前权限计算。",
@@ -624,6 +666,48 @@ window.CXNarration = {
       "duration": 9.6,
       "sha256": "17037cbcb3bf4eaf081b6b91b69ee4a757a51aa7f69268cd7b9d0d61d308288e",
       "content_sha256": "8c01f5e6af2dc56838863c5097647bcddba6fac9582d6e1edd64eb551094797c"
+    },
+    "governance/business-permissions/0": {
+      "text": "在 Dashboard 已注册智能体列表中，点击目标 Agent 的业务权限，打开居中弹窗。权限表格和表单沿用统一界面风格，背景暂停交互，操作集中在当前窗口。",
+      "src": "assets/narration/governance-business-permissions-01.mp3",
+      "duration": 16.056,
+      "sha256": "82a0747eb35b998b4f885f904add46b9b7bd5bcb84f9e220cce4705af610e082",
+      "content_sha256": "c69ea7015f2ef2106e9ac7c377fa83025d79feeab1f8dcd197e90bf3baf97ddf"
+    },
+    "governance/business-permissions/1": {
+      "text": "先查看实际生效权限、数据范围和直接授权记录。角色提供的权限和单独设置需要区分。页面展示当前状态，真正保存时仍由服务端检查授权。",
+      "src": "assets/narration/governance-business-permissions-02.mp3",
+      "duration": 15.984,
+      "sha256": "aa5d2d7f25e22b83f1206aa453966d511f54f10e0d600ed6ea22956f857a6fc6",
+      "content_sha256": "d8a8e308c0d07197c17f30f13dce443606531ce14cacfc410f98926f331c0be9"
+    },
+    "governance/business-permissions/2": {
+      "text": "有智能体管理权限的当前负责人，可以管理自有记忆权限。有用户权限管理能力的管理员，还能管理可见 Agent 的知识权限。这个入口只允许规定范围内的业务变更。",
+      "src": "assets/narration/governance-business-permissions-03.mp3",
+      "duration": 16.248,
+      "sha256": "ad55ee458925cddb510d1fb63e15dad3f1e057342783bb3bb307a152778c7478",
+      "content_sha256": "cca971d94f315d4ef0c3515e6adfcd1f743d7d43eeef4d3a4c7406cec18411f0"
+    },
+    "governance/business-permissions/3": {
+      "text": "选择授权、拒绝或恢复角色权限，并填写原因。恢复角色权限会移除对应的直接覆盖。输入框、下拉框和保存按钮等高对齐，窄屏上自动换行。",
+      "src": "assets/narration/governance-business-permissions-04.mp3",
+      "duration": 15.84,
+      "sha256": "9775abe93b16843be0c6aeaeac5a96dd2c9d24b88a9ce62ceff6bbb4db24436c",
+      "content_sha256": "04b070a19a0549f990e0b062426f111814a4d2f74a32dbd0fb5dfa2c46bdc7a2"
+    },
+    "governance/business-permissions/4": {
+      "text": "保存绑定当前权限版本，并记录审计。成功或失败反馈留在弹窗内，加载失败可重试。遇到版本冲突时，先刷新再决定，不能用旧状态覆盖新的权限决定。",
+      "src": "assets/narration/governance-business-permissions-05.mp3",
+      "duration": 16.344,
+      "sha256": "ac72c3b5e78ba3c58724de09bfd634ea61425dc8e0cce918756bf7f8fb922461",
+      "content_sha256": "ab32b0c9c7f9f5545a3079777b3d620c0151dbf7b5b57f3cd7737af48ae3a9ee"
+    },
+    "governance/business-permissions/5": {
+      "text": "操作完成后关闭弹窗，焦点返回原来的按钮。键盘可以用 Esc 退出，Tab 在窗口内循环。中英文、明暗主题和手机布局保持一致，让权限操作清楚可用。",
+      "src": "assets/narration/governance-business-permissions-06.mp3",
+      "duration": 16.776,
+      "sha256": "b90b2054391f95723a0eef75b14e66c7f557580ef466ae4d2b9d5d26dd59d94f",
+      "content_sha256": "b288ff03781e4b889fd0f660881ea23c479d1960ad23bc12b49e0e78521c5965"
     },
     "governance/audit/0": {
       "text": "审计先区分谁提出、谁批准、谁执行。人、智能体和数据库所有者，不互相代授权限。",
@@ -983,5 +1067,5 @@ window.CXNarration = {
       "content_sha256": "c60e248dccc507e03f737d230528ad8e3a40b44c18531495f6be84ba3caee689"
     }
   },
-  "audio_seconds": 1604.208
+  "audio_seconds": 1808.472
 };
