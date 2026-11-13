@@ -283,6 +283,19 @@
       technical: '连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。',
       active: [], event: 'WELCOME TO CHUANXU' }],
   };
+  pages.governance.intro = '从身份与授权，到持续受管工作、业务权限和撤销，明确外部 Agent 接入后的责任。规约要求使用平台能力，服务端校验实际收到的请求。';
+  pages.governance.scenes.push(scene('managed-work','注册后的受管工作','注册是起点，知识、记忆、事实与组织管理贯穿每次任务。',[
+    node('adopt','纳入可信配置','责任人 · 安全域 · 规则','shield'),node('read','动作前读依据','授权知识 · 自身记忆','book'),
+    node('record','检查点记事实','决策 · 验证 · 缺口','file'),node('remember','保存必要记忆','独立私有 · 幂等回读','layers'),
+    node('respect','接受组织管理','模型 · 工具 · 审批 · 撤销','lock'),node('finish','按回执交付','完成 · 部分 · 受阻 · 未知','check'),
+  ],[
+    step('注册之后，把规约接到每次工作里。','运行方须将受管规约纳入可信配置和任务钩子；不能把激活成功当作接入完成。','这是接入方义务。平台约束收到的请求，不能强迫绕过平台的外部进程调用接口。','adopt','ADOPT → trusted operating configuration'),
+    step('开始或恢复前，先读已有依据。','使用相关授权知识和自身记忆，核对版本、时间、冲突和任务验收条件。','Agent Bearer 学习目录需要 knowledge.read；完整社区学习资料需可选导入，缺失时报告，不虚构已读。','read','READ → relevant authorized sources'),
+    step('在关键节点，记录真实进展。','保留决策、验证、失败、未决问题和下一步，让后续工作可以接续。','复用 Task、Step、Work 和交接回执；自报观察不冒充独立审计或实际执行证明。','record','CHECKPOINT → actual work facts'),
+    step('有必要的上下文，及时存为记忆。','无需等用户说记住；按保留规则保存可复用私有记忆，不保存凭据、无关隐私或隐藏推理。','使用独立 Memory 接口和幂等键，写后按家族回读；无需频道，共享内容仍走候选与审核。','remember','MEMORY → private version and readback'),
+    step('企业内部接入，就应遵守组织规则。','接受责任人、安全域、模型工具、审批和撤销管理。必需能力缺失时阻断受影响动作并报告。','不得换凭据、换域或新实例绕过；可信运行配置和外部出口控制需由运行方落实，不能仅靠说明文字。','respect','POLICY → obey current organizational authority'),
+    step('结束汇报，要给出真实回执。','按验收条件区分完成、部分、受阻和未知，引用工作记录及必要记忆。','入队不等于完成，组装不证明模型已收到；结果未知先核对原幂等键，不能盲目重发写入。','finish','FINISH → evidence-bound outcome'),
+  ]));
   const chapterIntroductions = Object.fromEntries(chapters.slice(1).map(chapter => [chapter.id, {
     id: 'chapter-introduction', name: '本页导览',
     steps: [{ title: chapter.name, business: pages[chapter.id].intro,

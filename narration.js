@@ -4,10 +4,10 @@ window.CXNarration = {
   "product_version": "5.0.5",
   "language": "zh-CN",
   "voice": "zh-CN-XiaoxiaoNeural",
-  "generated_at": "2026-11-12T12:35:46.194485+00:00",
+  "generated_at": "2026-11-13T09:06:02.259880+00:00",
   "gap_seconds": 0.3,
-  "script_sha256": "4514edc317bba45043c0338f861c42c13892b3f3ba2c326555f42658fbbd3cfe",
-  "content_file_sha256": "2642b6f571685b742344ba24124daab73a1d18df85b40089798de3661963601c",
+  "script_sha256": "174f239812f72d9cff03df809aca69185d12f59e580bf46671eb442693f532d3",
+  "content_file_sha256": "77ba3c1a4e1f27095cd7b92931f2e8c720df98044e93f147a755e3900107354b",
   "entries": {
     "index/introduction/0": {
       "text": "川序是以数据库为权威状态源的企业智能体基础设施。它连接身份、知识、任务、协作和执行证据，让团队能够核对谁在负责、依据是什么、工作到了哪一步。接下来，我们从一次工作的流转，了解川序如何运行。",
@@ -577,11 +577,11 @@ window.CXNarration = {
       "content_sha256": "3da62ef8b52b1c294c3b01680f8862801a826eda1c21fa303e771ad80946eb47"
     },
     "governance/chapter-introduction/0": {
-      "text": "接下来是身份与治理。这一页介绍双主体授权、外部 Agent 身份、业务权限弹窗和治理审计。先看谁可以读取和执行，再看负责人如何在限定范围内调整权限。每次变更都保留当前授权、版本和审计边界。",
+      "text": "接下来是身份与治理。先看双主体授权、外部智能体身份、权限弹窗和审计，再看注册之后如何持续受管工作。知识、记忆、工作事实和组织规则贯穿任务，规约义务与平台实际强制范围分别说明。",
       "src": "assets/narration/governance-chapter-introduction-01.mp3",
-      "duration": 22.32,
-      "sha256": "0164f38cf7a1835513c7bfdd8654c1e559cb4ac6ccd89254dc70d010166389fa",
-      "content_sha256": "d4d5bee38bf1fab67d5ac9d1d35586b28c1cb51c9af7a8c5f522497414b92abf"
+      "duration": 21.432,
+      "sha256": "3d65c8a3d44fe7886f34399fe7b8aab40976d485f11840c5a1ca2c6c1cec6767",
+      "content_sha256": "2565d5b79842f4488b6190056acb1a99209967b92144cd23d691ab48fe19ccb1"
     },
     "governance/intersection/0": {
       "text": "权限治理先确认谁在发起。人的会话、组织和角色，共同参与当前权限计算。",
@@ -750,6 +750,48 @@ window.CXNarration = {
       "duration": 8.28,
       "sha256": "47dd8f8c2d68cb6e75ce0796873cf330da4d8840c28d6a04b7c54790ab9cf65e",
       "content_sha256": "5446411c59badd216d58b99b5fec449796f6cce80398f5f6e456dee9615662af"
+    },
+    "governance/managed-work/0": {
+      "text": "注册之后，把规约接到每次工作里。运行方须将规约纳入可信配置和任务钩子，不能把激活当成接入终点。平台校验收到的请求，不能强迫绕过它的外部程序调用接口。",
+      "src": "assets/narration/governance-managed-work-01.mp3",
+      "duration": 17.52,
+      "sha256": "9a266054928c1d6486177b2b102bab12344f3821ef0668043958b0630db7af3d",
+      "content_sha256": "67c9275f44df8444672bd56800bd7e184d546c54652d838d4b2700b89984fedb"
+    },
+    "governance/managed-work/1": {
+      "text": "开始或恢复前，先读已有依据。使用相关授权知识与自身记忆，核对版本、时间、冲突和验收条件。学习目录需要知识读取权限，社区完整指南需可选导入，缺失时报告，不虚构已读。",
+      "src": "assets/narration/governance-managed-work-02.mp3",
+      "duration": 19.92,
+      "sha256": "0c224d3c2f94dae4add947bf116fbb08e9b57267618e936a17b31ef28dea81bc",
+      "content_sha256": "7dbf154787e8f62922d616baa137e1f71a6c922a4a97269350c8230ff0f9f022"
+    },
+    "governance/managed-work/2": {
+      "text": "关键节点记录真实进展。保留决策、验证、失败、未决问题和下一步，让后续工作接得上。沿用任务、步骤、工作与交接回执；智能体自报，不冒充独立审计或真实执行证明。",
+      "src": "assets/narration/governance-managed-work-03.mp3",
+      "duration": 18.912,
+      "sha256": "fb9d6ba46eac7644572fb90798e992a9b3cda77c160395bdbd250ceafb5b4352",
+      "content_sha256": "e2208173a7f1f10c83ed08a7d6d231626b5ae7f5486b77551f0b8da6e55621fa"
+    },
+    "governance/managed-work/3": {
+      "text": "必要上下文，及时保存为私有记忆，无需等待用户说记住。按规则保留可复用发现，不保存凭据、无关隐私或隐藏推理。独立记忆接口使用幂等键并回读核对，无需频道，共享仍要审核。",
+      "src": "assets/narration/governance-managed-work-04.mp3",
+      "duration": 19.896,
+      "sha256": "c11adc3145a65f6766f3cb5b37ba32a5c719b65247a55a4d3f2a1d5567bf56a2",
+      "content_sha256": "c33b891138488761d004d9d178ac018d008b6d03d5ee6db5610f4c3c4a85b0b1"
+    },
+    "governance/managed-work/4": {
+      "text": "企业内部接入，就应接受组织管理。遵守责任人、安全域、模型工具、审批和撤销规则。必需能力缺失时，阻断受影响动作并报告。不能换凭据绕过，外部运行与出口控制仍由运行方落实。",
+      "src": "assets/narration/governance-managed-work-05.mp3",
+      "duration": 20.04,
+      "sha256": "d73c9f2357cc4d669a8e20f89c972323e0bf80e993945de7afa073b77bc07c90",
+      "content_sha256": "1b11bf442fb6ec9d41e0be38686f92a7d59dbd9d5f6857d5062c7d2ceb5633f9"
+    },
+    "governance/managed-work/5": {
+      "text": "结束汇报，给出真实回执。按验收条件区分完成、部分、受阻和未知，并引用工作记录与必要记忆。入队不等于完成，组装不证明模型已收到；未知结果先核对，不能盲目重发写入。",
+      "src": "assets/narration/governance-managed-work-06.mp3",
+      "duration": 19.44,
+      "sha256": "056e97d23911c93d67d8d09cfcef5e4bce347baf513ad809db206a8c33decc6c",
+      "content_sha256": "006d53cd6c32de35ef1258a056858bdc8bdda9629047a5be4035e073b07d51bf"
     },
     "runtime/chapter-introduction/0": {
       "text": "接下来是模型与运行。我们会依次看请求的完整生命周期、未知结果与恢复，以及本版的最终传输检查。重点是核对真正发送的输入、实际返回的输出，并看清检查覆盖的边界。",
@@ -1067,5 +1109,5 @@ window.CXNarration = {
       "content_sha256": "c60e248dccc507e03f737d230528ad8e3a40b44c18531495f6be84ba3caee689"
     }
   },
-  "audio_seconds": 1808.472
+  "audio_seconds": 1923.312
 };
